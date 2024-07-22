@@ -63,9 +63,12 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
             },
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: SvgPicture.asset(
-                isObs ? IconsPath.eyeClosed : IconsPath.eye,
-                height: 25,
+              child: Ink(
+                height: 30,
+                width: 30,
+                child: SvgPicture.asset(
+                  isObs ? IconsPath.eyeClosed : IconsPath.eye,
+                ),
               ),
             ),
           ),
