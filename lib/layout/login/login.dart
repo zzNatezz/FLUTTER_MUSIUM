@@ -26,6 +26,15 @@ class LoginPage extends StatelessWidget {
                     // VerticalSpace(value: 15),
                     Column(
                       children: [
+                        SvgPicture.asset(
+                          IconsPath.logo,
+                          height: 60,
+                        ),
+                      ],
+                    ),
+
+                    Column(
+                      children: [
                         Align(
                           alignment: const Alignment(-1, 0),
                           child: Text(
@@ -41,15 +50,6 @@ class LoginPage extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w200)),
                         ),
-                      ],
-                    ),
-
-                    Column(
-                      children: [
-                        SvgPicture.asset(
-                          IconsPath.logo,
-                          height: 60,
-                        ),
                         VerticalSpace(value: 30),
                         LoginTextField(
                           hintText: 'Type e-mail or user name',
@@ -57,8 +57,7 @@ class LoginPage extends StatelessWidget {
                               TextStyle(color: Colorscontroller.hintTextLogin),
                         ),
                         VerticalSpace(value: 15),
-                        LoginTextField(
-                          isObs: true,
+                        PasswordFormField(
                           hintText: 'Please fill in urpass',
                           hintStyle:
                               TextStyle(color: Colorscontroller.hintTextLogin),
