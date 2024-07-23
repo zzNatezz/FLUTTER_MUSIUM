@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:golobe/layout/introPage/introPage.dart';
 import 'package:golobe/layout/login/login.dart';
 
 void main() {
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Golobe',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: LoginPage(),
+      home: const LoginPage(),
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/intro': (context) => const IntroPage()
+      },
     );
   }
 }

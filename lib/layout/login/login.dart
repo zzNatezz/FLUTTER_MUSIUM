@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:golobe/all_functions/fnc_login.dart";
 import "package:golobe/layout/login/components/text_form_field.dart";
 import "package:golobe/utils/assetsStorage/icon.dart";
 import 'package:golobe/utils/colorsController/colors_controller.dart';
@@ -32,7 +33,6 @@ class LoginPage extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     Column(
                       children: [
                         Align(
@@ -69,7 +69,9 @@ class LoginPage extends StatelessWidget {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colorscontroller.loginButton),
-                            onPressed: () {},
+                            onPressed: () {
+                              loginFnc(context);
+                            },
                             child: Text('Login',
                                 style: TextStyle(
                                     color: Colorscontroller.whitText,
