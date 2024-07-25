@@ -51,33 +51,9 @@ class LoginPage extends StatelessWidget {
                                   fontSize: 20, fontWeight: FontWeight.w200)),
                         ),
                         VerticalSpace(value: 30),
-                        LoginTextField(
-                          hintText: 'Type e-mail or user name',
+                        LoginFormField(
                           hintStyle:
                               TextStyle(color: Colorscontroller.hintTextLogin),
-                        ),
-                        VerticalSpace(value: 15),
-                        PasswordFormField(
-                          hintText: 'Please fill in urpass',
-                          hintStyle:
-                              TextStyle(color: Colorscontroller.hintTextLogin),
-                        ),
-                        VerticalSpace(value: 15),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colorscontroller.loginButton),
-                            onPressed: () {
-                              loginFnc(context);
-                            },
-                            child: Text('Login',
-                                style: TextStyle(
-                                    color: Colorscontroller.whitText,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
-                          ),
                         ),
                         VerticalSpace(value: 15),
                         Text(

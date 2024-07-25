@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-void loginFnc(dynamic context) {
-  Navigator.pushNamed(context, '/intro');
+void loginFnc({required String email, required String password}) {
+  print('email : $email, password : $password');
 }
