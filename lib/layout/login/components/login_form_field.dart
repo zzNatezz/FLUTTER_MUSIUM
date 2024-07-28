@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:golobe/all_functions/fnc_api.dart';
 import 'package:golobe/core/cubit/auth/auth_cubit.dart';
 import 'package:golobe/core/cubit/auth/auth_state.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
@@ -79,37 +80,56 @@ class _LoginFormFieldState extends State<LoginFormField> {
           ),
         ),
         VerticalSpace(value: 15),
+        // SizedBox(
+        //   width: double.infinity,
+        //   height: 50,
+        //   child: BlocProvider(
+        //     create: (context) => _authCubit,
+        //     child: BlocBuilder(
+        //       bloc: _authCubit,
+        //       builder: (context, state) {
+        //         if (state is AuthLoading) {
+        //           return const Center(child: CircularProgressIndicator());
+        //         }
+        //         return ElevatedButton(
+        //           style: ElevatedButton.styleFrom(
+        //               backgroundColor: Colorscontroller.loginButton),
+        //           onPressed: () {
+        //             _authCubit.login(
+        //                 context: context,
+        //                 email: _emailController.text,
+        //                 password: _passwordController.text);
+        //             // Api_login(
+        //             //     email: _emailController.text,
+        //             //     password: _passwordController.text);
+        //           },
+        //           child: Text('Login',
+        //               style: TextStyle(
+        //                   color: Colorscontroller.whitText,
+        //                   fontSize: 30,
+        //                   fontWeight: FontWeight.w400)),
+        //         );
+        //       },
+        //     ),
+        //   ),
+        // ),
         SizedBox(
           width: double.infinity,
           height: 50,
-          child: BlocProvider(
-            create: (context) => _authCubit,
-            child: BlocBuilder(
-              bloc: _authCubit,
-              builder: (context, state) {
-                if (state is AuthLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colorscontroller.loginButton),
-                  onPressed: () {
-                    _authCubit.login(
-                        context: context,
-                        email: _emailController.text,
-                        password: _passwordController.text);
-                    // Api_login(
-                    //     email: _emailController.text,
-                    //     password: _passwordController.text);
-                  },
-                  child: Text('Login',
-                      style: TextStyle(
-                          color: Colorscontroller.whitText,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w400)),
-                );
-              },
-            ),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colorscontroller.loginButton),
+            onPressed: () {
+              Api_login(
+                  context: context,
+                  email: _emailController.text,
+                  password: _passwordController.text);
+            },
+            child: Text('Login',
+                style: TextStyle(
+                    color: Colorscontroller.whitText,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w400)),
           ),
         ),
       ],

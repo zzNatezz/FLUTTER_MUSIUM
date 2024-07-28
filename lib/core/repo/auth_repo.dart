@@ -8,7 +8,7 @@ class AuthRepo {
   Future<Map<String, dynamic>> authLogin(
       {required String email, required String password}) async {
     try {
-      final req = await ApiClient().fetPost(ApiPath.mainEndPoint, data: {
+      final req = await ApiClient().fetPost(ApiPath.loginEndPoint, data: {
         'username': email,
         'password': password,
       });
