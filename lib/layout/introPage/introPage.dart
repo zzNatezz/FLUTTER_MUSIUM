@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as prefix;
-import 'package:dio/dio.dart';
+// import 'package:http/http.dart' as prefix;
+// import 'package:dio/dio.dart';
 
 class IntroPage extends StatelessWidget {
   IntroPage({super.key});

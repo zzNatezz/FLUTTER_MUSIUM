@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:golobe/all_functions/fnc_login.dart';
+import 'package:golobe/core/cubit/auth/auth_cubit.dart';
+import 'package:golobe/core/cubit/auth/auth_state.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
@@ -18,8 +20,15 @@ class LoginFormField extends StatefulWidget {
 class _LoginFormFieldState extends State<LoginFormField> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  late AuthCubit _authCubit;
   bool isObs = true;
+
+  @override
+  void initState() {
+    _authCubit = AuthCubit();
+    super.initState();
+  }
+
   void obsController() {
     setState(() {
       isObs = !isObs;
@@ -73,19 +82,34 @@ class _LoginFormFieldState extends State<LoginFormField> {
         SizedBox(
           width: double.infinity,
           height: 50,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colorscontroller.loginButton),
-            onPressed: () {
-              loginFnc(
-                  email: _emailController.text,
-                  password: _passwordController.text);
-            },
-            child: Text('Login',
-                style: TextStyle(
-                    color: Colorscontroller.whitText,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w400)),
+          child: BlocProvider(
+            create: (context) => _authCubit,
+            child: BlocBuilder(
+              bloc: _authCubit,
+              builder: (context, state) {
+                if (state is AuthLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colorscontroller.loginButton),
+                  onPressed: () {
+                    _authCubit.login(
+                        context: context,
+                        email: _emailController.text,
+                        password: _passwordController.text);
+                    // Api_login(
+                    //     email: _emailController.text,
+                    //     password: _passwordController.text);
+                  },
+                  child: Text('Login',
+                      style: TextStyle(
+                          color: Colorscontroller.whitText,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w400)),
+                );
+              },
+            ),
           ),
         ),
       ],

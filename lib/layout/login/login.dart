@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
-import "package:golobe/all_functions/fnc_login.dart";
-import "package:golobe/layout/login/components/text_form_field.dart";
+import "package:golobe/layout/login/components/login_form_field.dart";
 import "package:golobe/utils/assetsStorage/icon.dart";
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import "package:golobe/utils/divider_with_text.dart";
@@ -38,7 +37,7 @@ class LoginPage extends StatelessWidget {
                         Align(
                           alignment: const Alignment(-1, 0),
                           child: Text(
-                            'Login',
+                            'Logssin',
                             style: GoogleFonts.lato(
                                 textStyle: const TextStyle(
                                     fontSize: 60, fontWeight: FontWeight.bold)),
