@@ -1,7 +1,10 @@
+import "dart:ui";
+
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
 import "package:golobe/layout/login/components/login_form_field.dart";
 import "package:golobe/utils/assetsStorage/icon.dart";
+import "package:golobe/utils/assetsStorage/picture.dart";
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import "package:golobe/utils/divider_with_text.dart";
 import "package:golobe/utils/spaceController/spaces_controller.dart";
@@ -24,20 +27,25 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // VerticalSpace(value: 15),
+                    // Column(
+                    //   children: [
+                    //     SvgPicture.asset(
+                    //       IconsPath.logo,
+                    //       height: 100,
+                    //     ),
+                    //   ],
+                    // ),
                     Column(
                       children: [
-                        SvgPicture.asset(
-                          IconsPath.logo,
-                          height: 60,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
+                        const Image(
+                            image: AssetImage(PicturePath.logo),
+                            alignment: Alignment.center,
+                            width: double.infinity,
+                            fit: BoxFit.fill),
                         Align(
                           alignment: const Alignment(-1, 0),
                           child: Text(
-                            'Logssin',
+                            'Login',
                             style: GoogleFonts.lato(
                                 textStyle: const TextStyle(
                                     fontSize: 60, fontWeight: FontWeight.bold)),
@@ -45,17 +53,17 @@ class LoginPage extends StatelessWidget {
                         ),
                         const Align(
                           alignment: Alignment(-1, 0),
-                          child: Text('Login to access your golobe account',
+                          child: Text('Login to access your account',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w200)),
                         ),
                         VerticalSpace(value: 30),
-                        LoginFormField(
+                        const LoginFormField(
                           hintStyle:
                               TextStyle(color: Colorscontroller.hintTextLogin),
                         ),
                         VerticalSpace(value: 15),
-                        Text(
+                        const Text(
                           "SignUp ?",
                           style: TextStyle(
                               color: Colorscontroller.warning, fontSize: 20),

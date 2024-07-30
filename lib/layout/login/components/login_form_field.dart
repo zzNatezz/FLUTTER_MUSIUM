@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:golobe/all_functions/fnc_api.dart';
-import 'package:golobe/core/cubit/auth/auth_cubit.dart';
-import 'package:golobe/core/cubit/auth/auth_state.dart';
+// import 'package:golobe/core/cubit/auth/auth_cubit.dart';
+// import 'package:golobe/core/cubit/auth/auth_state.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
@@ -21,14 +21,15 @@ class LoginFormField extends StatefulWidget {
 class _LoginFormFieldState extends State<LoginFormField> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  late AuthCubit _authCubit;
+  bool isCheck = false;
+  // late AuthCubit _authCubit;
   bool isObs = true;
 
-  @override
-  void initState() {
-    _authCubit = AuthCubit();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _authCubit = AuthCubit();
+  //   super.initState();
+  // }
 
   void obsController() {
     setState(() {
@@ -43,6 +44,12 @@ class _LoginFormFieldState extends State<LoginFormField> {
         TextFormField(
           controller: _emailController,
           decoration: InputDecoration(
+              prefixIconConstraints:
+                  const BoxConstraints(minHeight: 10, maxHeight: 50),
+              prefixIcon: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5, end: 5),
+                child: SvgPicture.asset(IconsPath.email),
+              ),
               hintText: 'E-mail or user name',
               hintStyle: widget.hintStyle,
               border: const OutlineInputBorder()),
@@ -55,6 +62,14 @@ class _LoginFormFieldState extends State<LoginFormField> {
             border: const OutlineInputBorder(),
             hintText: "Password here",
             hintStyle: widget.hintStyle,
+            prefixIconConstraints:
+                const BoxConstraints(minHeight: 10, maxHeight: 50),
+            prefixIcon: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 5, end: 5),
+              child: SvgPicture.asset(
+                IconsPath.lock,
+              ),
+            ),
             suffixIconConstraints:
                 const BoxConstraints(minHeight: 10, maxHeight: 50),
             suffixIcon: Padding(
@@ -80,6 +95,25 @@ class _LoginFormFieldState extends State<LoginFormField> {
           ),
         ),
         VerticalSpace(value: 15),
+
+        //Check box here
+        Row(
+          children: [
+            Checkbox(
+                value: isCheck,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isCheck = value!;
+                  });
+                }),
+            const Text(
+              'Remember me ?',
+              style: TextStyle(color: Colorscontroller.warning, fontSize: 15),
+            )
+          ],
+        ),
+        //end of check box
+
         // SizedBox(
         //   width: double.infinity,
         //   height: 50,
@@ -113,6 +147,7 @@ class _LoginFormFieldState extends State<LoginFormField> {
         //     ),
         //   ),
         // ),
+
         SizedBox(
           width: double.infinity,
           height: 50,
@@ -125,7 +160,7 @@ class _LoginFormFieldState extends State<LoginFormField> {
                   email: _emailController.text,
                   password: _passwordController.text);
             },
-            child: Text('Login',
+            child: const Text('Login',
                 style: TextStyle(
                     color: Colorscontroller.whitText,
                     fontSize: 30,
