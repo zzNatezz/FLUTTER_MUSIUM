@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:golobe/core/cubit/auth/auth_state.dart';
-import 'package:golobe/core/repo/auth_repo.dart';
 import 'dart:developer' as devlog;
+
+import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
+import 'package:golobe/core/repo/repo_musium/auth_repo.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthStart());

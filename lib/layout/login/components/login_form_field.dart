@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:golobe/core/cubit/auth/auth_cubit.dart';
-import 'package:golobe/core/cubit/auth/auth_state.dart';
+import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
+import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'dart:developer' as devlog;
 import 'package:golobe/core/consttants/api_login.dart';
 import 'package:golobe/core/consttants/api_path.dart';
