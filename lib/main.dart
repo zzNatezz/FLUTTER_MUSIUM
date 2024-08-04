@@ -1,7 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:golobe/router/router.dart';
+import 'package:golobe/utils/fire-base/StoreDataFb.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: FireBaseOption.apiKey,
+          appId: FireBaseOption.appId,
+          messagingSenderId: FireBaseOption.messagingSenderId,
+          projectId: FireBaseOption.projectId));
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -13,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Golobe',
+      title: 'Musium',
       routerConfig: _router,
     );
   }

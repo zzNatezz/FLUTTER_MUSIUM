@@ -18,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthProcessing());
       await _authRepo.authLogin(email: email, password: password);
       if (context.mounted) {
-        context.pushReplacement('/intro');
+        context.pushReplacement('intro');
       }
       emit(AuthCompleted());
     } catch (e) {

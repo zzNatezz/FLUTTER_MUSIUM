@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class IntroPage extends StatelessWidget {
-  static const String IntroPageRoute = '/intro';
+  static const String IntroPageRoute = 'intro';
   const IntroPage({super.key});
 
   @override

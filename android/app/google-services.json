@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "170204797988",
+    "project_id": "musium-project",
+    "storage_bucket": "musium-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170204797988:android:e00291b6eb6acbd456ccb1",
+        "android_client_info": {
+          "package_name": "com.example.golobe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170204797988-scjk3q5ftkkfm1dgm0ncv889gv1efn3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.golobe",
+            "certificate_hash": "ba0618c2e4c773e03c0f8cbee29f37f3804ab32b"
+          }
+        },
+        {
+          "client_id": "170204797988-5agnv0s0o3ljtec2b01oi3ncnro9cvj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg_lJbpzO8b_IIxhSFkQPCFQk6of0BShs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170204797988-5agnv0s0o3ljtec2b01oi3ncnro9cvj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
