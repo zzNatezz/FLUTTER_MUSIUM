@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:golobe/all_functions/fnc_api.dart';
-// import 'package:golobe/core/cubit/auth/auth_cubit.dart';
-// import 'package:golobe/core/cubit/auth/auth_state.dart';
+import 'package:golobe/core/cubit/auth/auth_cubit.dart';
+import 'package:golobe/core/cubit/auth/auth_state.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
@@ -22,14 +22,16 @@ class _LoginFormFieldState extends State<LoginFormField> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isCheck = false;
-  // late AuthCubit _authCubit;
+  //
+  late AuthCubit _authCubit;
+
   bool isObs = true;
 
-  // @override
-  // void initState() {
-  //   _authCubit = AuthCubit();
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    _authCubit = AuthCubit();
+    super.initState();
+  }
 
   void obsController() {
     setState(() {
@@ -50,7 +52,7 @@ class _LoginFormFieldState extends State<LoginFormField> {
                 padding: const EdgeInsetsDirectional.only(start: 5, end: 5),
                 child: SvgPicture.asset(IconsPath.email),
               ),
-              hintText: 'E-mail or user name',
+              hintText: 'Accept user name',
               hintStyle: widget.hintStyle,
               border: const OutlineInputBorder()),
         ),
@@ -112,62 +114,45 @@ class _LoginFormFieldState extends State<LoginFormField> {
             )
           ],
         ),
-        //end of check box
-
-        // SizedBox(
-        //   width: double.infinity,
-        //   height: 50,
-        //   child: BlocProvider(
-        //     create: (context) => _authCubit,
-        //     child: BlocBuilder(
-        //       bloc: _authCubit,
-        //       builder: (context, state) {
-        //         if (state is AuthLoading) {
-        //           return const Center(child: CircularProgressIndicator());
-        //         }
-        //         return ElevatedButton(
-        //           style: ElevatedButton.styleFrom(
-        //               backgroundColor: Colorscontroller.loginButton),
-        //           onPressed: () {
-        //             _authCubit.login(
-        //                 context: context,
-        //                 email: _emailController.text,
-        //                 password: _passwordController.text);
-        //             // Api_login(
-        //             //     email: _emailController.text,
-        //             //     password: _passwordController.text);
-        //           },
-        //           child: Text('Login',
-        //               style: TextStyle(
-        //                   color: Colorscontroller.whitText,
-        //                   fontSize: 30,
-        //                   fontWeight: FontWeight.w400)),
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ),
 
         SizedBox(
           width: double.infinity,
           height: 50,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colorscontroller.loginButton),
-            onPressed: () {
-              Api_login(
-                  context: context,
-                  email: _emailController.text,
-                  password: _passwordController.text);
-            },
-            child: const Text('Login',
-                style: TextStyle(
-                    color: Colorscontroller.whitText,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w400)),
+          child: BlocProvider(
+            create: (context) => _authCubit,
+            child: BlocBuilder(
+                bloc: _authCubit,
+                builder: (context, state) {
+                  if (state is AuthProcessing) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colorscontroller.loginButton),
+                    onPressed: () {
+                      _authCubit.login(
+                          // context: context,
+                          email: _emailController.text,
+                          password: _passwordController.text);
+                    },
+                    child: const Text('Login',
+                        style: TextStyle(
+                            color: Colorscontroller.whitText,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w400)),
+                  );
+                }),
           ),
         ),
       ],
     );
   }
 }
+
+
+              // Api_login(
+              //     context: context,
+              //     email: _emailController.text,
+              //     password: _passwordController.text);

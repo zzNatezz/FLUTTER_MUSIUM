@@ -1,27 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:golobe/core/cubit/auth/auth_state.dart';
 import 'package:golobe/core/repo/auth_repo.dart';
+import 'dart:developer' as devlog;
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInit());
-
+  AuthCubit() : super(AuthStart());
   final AuthRepo _authRepo = AuthRepo();
-
-  Future<void> login(
-      {required BuildContext context,
-      required String email,
-      required String password}) async {
+  Future<void> login({required String email, required String password}) async {
     try {
-      emit(AuthLoading());
-      final result =
-          await _authRepo.authLogin(email: email, password: password);
-
-      print(result);
-
-      context.push('/intro');
-    } catch (e) {}
+      emit(AuthProcessing());
+      await _authRepo.authLogin(email: email, password: password);
+      emit(AuthCompleted());
+    } catch (e) {
+      emit(AuthError(e.toString()));
+      devlog.log('error due to --> $e');
+    }
   }
 }
-//!D/EGL_emulation

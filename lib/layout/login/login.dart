@@ -26,15 +26,6 @@ class LoginPage extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // VerticalSpace(value: 15),
-                    // Column(
-                    //   children: [
-                    //     SvgPicture.asset(
-                    //       IconsPath.logo,
-                    //       height: 100,
-                    //     ),
-                    //   ],
-                    // ),
                     Column(
                       children: [
                         const Image(

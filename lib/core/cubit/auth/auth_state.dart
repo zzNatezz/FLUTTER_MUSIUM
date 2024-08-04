@@ -6,13 +6,13 @@ sealed class AuthState extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthInit extends AuthState {}
+class AuthStart extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class AuthProcessing extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class AuthCompleted extends AuthState {}
 
-class AuthFailure extends AuthState {
+class AuthError extends AuthState {
   final String error;
-  const AuthFailure(this.error);
+  const AuthError(this.error);
 }
