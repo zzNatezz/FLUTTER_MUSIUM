@@ -29,7 +29,6 @@ class AuthRepo {
       final decoded = JWT.decode(jsondecodde);
 
       if (req.statusCode == 200) {
-        context!.goNamed('intro');
         return ClientModel(accessToken: decoded.payload);
       } else {
         return ClientModel(error: true);

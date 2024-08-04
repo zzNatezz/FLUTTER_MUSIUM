@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as prefix;
-// import 'package:dio/dio.dart';
+import 'package:go_router/go_router.dart';
 
 class IntroPage extends StatelessWidget {
-  IntroPage({super.key});
+  static const String IntroPageRoute = '/intro';
+  const IntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class IntroPage extends StatelessWidget {
         body: ElevatedButton(
           child: const Text('click me'),
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/login');
+            context.pushReplacement('/');
           },
         ));
   }

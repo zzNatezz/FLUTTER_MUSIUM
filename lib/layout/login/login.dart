@@ -11,6 +11,7 @@ import "package:golobe/utils/spaceController/spaces_controller.dart";
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
+  static const String loginPageRoute = '/';
   const LoginPage({super.key});
 
   @override

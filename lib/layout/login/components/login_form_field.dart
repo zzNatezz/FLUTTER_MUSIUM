@@ -132,7 +132,7 @@ class _LoginFormFieldState extends State<LoginFormField> {
                         backgroundColor: Colorscontroller.loginButton),
                     onPressed: () {
                       _authCubit.login(
-                          // context: context,
+                          context: context,
                           email: _emailController.text,
                           password: _passwordController.text);
                     },
