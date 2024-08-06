@@ -1,7 +1,7 @@
-import "dart:ui";
-
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart";
+import "package:golobe/layout/login/components/auth_service.dart";
 import "package:golobe/layout/login/components/login_form_field.dart";
 import "package:golobe/utils/assetsStorage/icon.dart";
 import "package:golobe/utils/assetsStorage/picture.dart";
@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
   static const String loginPageRoute = '/';
+
   const LoginPage({super.key});
 
   @override
@@ -71,8 +72,11 @@ class LoginPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               SvgPicture.asset(IconsPath.iconFb, height: 40),
-                              SvgPicture.asset(IconsPath.iconGoogle,
-                                  height: 40),
+                              AuthService(
+                                iconPath: IconsPath.iconGoogle,
+                                // authCubit:
+                                //     AuthCubit().SignInWithGG(context: context),
+                              ),
                               SvgPicture.asset(IconsPath.iconApple, height: 40),
                             ],
                           )

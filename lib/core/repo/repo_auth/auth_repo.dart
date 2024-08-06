@@ -1,21 +1,23 @@
 import 'dart:convert';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:developer' as devlog;
 import 'package:golobe/core/consttants/api_login.dart';
 import 'package:golobe/core/consttants/api_path.dart';
 import 'package:dio/dio.dart';
-
-final dio = Dio();
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepo {
   // final ApiClient _apiClient = ApiClient();
+  final dio = Dio();
   Future<ClientModel> authLogin({
     BuildContext? context,
     required String email,
     required String password,
   }) async {
     try {
+      final dio = Dio();
       final Map<String, dynamic> data = {
         'username': email,
         'password': password,
@@ -36,5 +38,24 @@ class AuthRepo {
       devlog.log('error due to --> $e');
       return ClientModel(error: true);
     }
+  }
+
+  //Sing with Googl;e
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

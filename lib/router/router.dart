@@ -8,7 +8,7 @@ GoRouter goRouter() {
     GoRoute(
         path: LoginPage.loginPageRoute,
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginPage();
+          return LoginPage();
         },
         routes: <RouteBase>[
           GoRoute(
