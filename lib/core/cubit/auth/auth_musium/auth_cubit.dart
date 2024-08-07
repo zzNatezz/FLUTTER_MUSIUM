@@ -7,6 +7,7 @@ import 'dart:developer' as devlog;
 
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
+import 'package:golobe/core/repo/repo_auth/gg_excep/gg_exept.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthStart());
@@ -37,10 +38,24 @@ class AuthCubit extends Cubit<AuthState> {
       if (context.mounted) {
         context.pushReplacement('/intro');
       }
+    } on NoGoogleAccountChosenException {
+      emit(AuthCompleted());
+      return;
     } catch (e) {
       emit(AuthError(e.toString()));
       if (!context.mounted) return;
       devlog.log('Sign In GG error due to $e');
+    }
+  }
+
+  Future<void> Logout({required BuildContext context}) async {
+    try {
+      await _authRepo.logOut();
+      if (context.mounted) {
+        context.pushReplacement('/');
+      }
+    } catch (e) {
+      devlog.log('Sever errorrss....');
     }
   }
 }

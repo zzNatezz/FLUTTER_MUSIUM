@@ -68,18 +68,7 @@ class LoginPage extends StatelessWidget {
                               dividerColor: Colors.black,
                               fontSize: 16),
                           VerticalSpace(value: 30),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SvgPicture.asset(IconsPath.iconFb, height: 40),
-                              AuthService(
-                                iconPath: IconsPath.iconGoogle,
-                                // authCubit:
-                                //     AuthCubit().SignInWithGG(context: context),
-                              ),
-                              SvgPicture.asset(IconsPath.iconApple, height: 40),
-                            ],
-                          )
+                          const AuthService()
                         ]),
                         VerticalSpace(value: 30)
                       ],

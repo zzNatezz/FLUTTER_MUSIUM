@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
 
 class IntroPage extends StatelessWidget {
   static const String IntroPageRoute = 'intro';
@@ -12,7 +12,7 @@ class IntroPage extends StatelessWidget {
         body: ElevatedButton(
           child: const Text('click me'),
           onPressed: () {
-            context.pushReplacement('/');
+            AuthCubit().Logout(context: context);
           },
         ));
   }

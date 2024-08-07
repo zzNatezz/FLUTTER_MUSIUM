@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
+import 'package:golobe/utils/assetsStorage/icon.dart';
+import 'package:golobe/utils/colorsController/colors_controller.dart';
 
 class AuthService extends StatefulWidget {
-  final String iconPath;
-  const AuthService({super.key, required this.iconPath});
+  const AuthService({super.key});
 
   @override
   State<AuthService> createState() => _AuthServiceState();
@@ -33,12 +34,31 @@ class _AuthServiceState extends State<AuthService> {
                   child: CircularProgressIndicator(),
                 );
               }
-              return Expanded(
-                child: ElevatedButton(
-                    onPressed: () {
-                      _authCubit.SignInWithGG(context: context);
-                    },
-                    child: SvgPicture.asset(widget.iconPath, height: 40)),
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0.0,
+                          backgroundColor: Colorscontroller.whitText),
+                      onPressed: () {},
+                      child: SvgPicture.asset(IconsPath.iconFb, height: 40)),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0.0,
+                          backgroundColor: Colorscontroller.whitText),
+                      onPressed: () {
+                        _authCubit.SignInWithGG(context: context);
+                      },
+                      child:
+                          SvgPicture.asset(IconsPath.iconGoogle, height: 40)),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          elevation: 0.0,
+                          backgroundColor: Colorscontroller.whitText),
+                      onPressed: () {},
+                      child: SvgPicture.asset(IconsPath.iconApple, height: 40)),
+                ],
               );
             }));
   }

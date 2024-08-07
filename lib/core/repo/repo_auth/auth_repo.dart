@@ -6,10 +6,12 @@ import 'dart:developer' as devlog;
 import 'package:golobe/core/consttants/api_login.dart';
 import 'package:golobe/core/consttants/api_path.dart';
 import 'package:dio/dio.dart';
+import 'package:golobe/core/repo/repo_auth/gg_excep/gg_exept.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepo {
   // final ApiClient _apiClient = ApiClient();
+  static final _auth_fb = FirebaseAuth.instance;
   final dio = Dio();
   Future<ClientModel> authLogin({
     BuildContext? context,
@@ -45,6 +47,10 @@ class AuthRepo {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
+    if (googleUser == null) {
+      throw const NoGoogleAccountChosenException();
+    }
+
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
@@ -57,5 +63,11 @@ class AuthRepo {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<void> logOut() async {
+    // await _auth_fb.signOut();
+    await GoogleSignIn().signOut();
+    // await FirebaseAuth.instance.signOut();
   }
 }
