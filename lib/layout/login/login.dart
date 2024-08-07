@@ -1,9 +1,6 @@
 import "package:flutter/material.dart";
-import "package:flutter_svg/flutter_svg.dart";
-import "package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart";
 import "package:golobe/layout/login/components/auth_service.dart";
 import "package:golobe/layout/login/components/login_form_field.dart";
-import "package:golobe/utils/assetsStorage/icon.dart";
 import "package:golobe/utils/assetsStorage/picture.dart";
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import "package:golobe/utils/divider_with_text.dart";

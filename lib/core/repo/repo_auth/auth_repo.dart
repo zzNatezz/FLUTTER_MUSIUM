@@ -53,7 +53,7 @@ class AuthRepo {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+        await googleUser.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -66,8 +66,8 @@ class AuthRepo {
   }
 
   Future<void> logOut() async {
-    // await _auth_fb.signOut();
+    await _auth_fb.signOut();
     await GoogleSignIn().signOut();
-    // await FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.signOut();
   }
 }
