@@ -6,7 +6,7 @@ import 'dart:developer' as devlog;
 import 'package:golobe/core/consttants/api_login.dart';
 import 'package:golobe/core/consttants/api_path.dart';
 import 'package:dio/dio.dart';
-import 'package:golobe/core/repo/repo_auth/gg_excep/gg_exept.dart';
+import 'package:golobe/core/repo/repo_auth/exceptions/gg_exept.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepo {

@@ -32,7 +32,7 @@ class _LoginFormFieldState extends State<LoginFormField> {
     super.initState();
   }
 
-  void obsController() {
+  void handleOBS() {
     setState(() {
       isObs = !isObs;
     });
@@ -79,7 +79,7 @@ class _LoginFormFieldState extends State<LoginFormField> {
                 customBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
                 onTap: () {
-                  obsController();
+                  handleOBS();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),

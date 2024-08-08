@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:developer' as devlog;
-
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
-import 'package:golobe/core/repo/repo_auth/gg_excep/gg_exept.dart';
+import 'package:golobe/core/repo/repo_auth/exceptions/auth_exept.dart';
+import 'package:golobe/core/repo/repo_auth/exceptions/gg_exept.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthStart());
@@ -18,14 +18,22 @@ class AuthCubit extends Cubit<AuthState> {
       required BuildContext context}) async {
     try {
       emit(AuthProcessing());
+      if (email.isEmpty || password.isEmpty) {
+        throw Exception("User name and password can't be empty");
+      }
+      if (email.length < 5) {
+        throw Exception("User name is too short");
+      }
       await _authRepo.authLogin(email: email, password: password);
       if (context.mounted) {
         context.pushReplacement('/intro');
       }
       emit(AuthCompleted());
+    } on Exception catch (e) {
+      emit(AuthCompleted());
+      return AlerException(mess: e.toString()).AlertAuth(context: context);
     } catch (e) {
       emit(AuthError(e.toString()));
-      devlog.log('error due to --> $e');
     }
   }
 
