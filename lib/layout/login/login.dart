@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:golobe/layout/login/components/auth_service.dart";
 import "package:golobe/layout/login/components/login_form_field.dart";
+import "package:golobe/layout/sign_up/sign_up.dart";
 import "package:golobe/utils/assetsStorage/picture.dart";
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import "package:golobe/utils/divider_with_text.dart";
@@ -53,10 +55,15 @@ class LoginPage extends StatelessWidget {
                               TextStyle(color: Colorscontroller.hintTextLogin),
                         ),
                         VerticalSpace(value: 15),
-                        const Text(
-                          "SignUp ?",
-                          style: TextStyle(
-                              color: Colorscontroller.warning, fontSize: 20),
+                        TextButton(
+                          onPressed: () {
+                            context.push(RegisterPage.registerPageRoute);
+                          },
+                          child: const Text(
+                            "SignUp ?",
+                            style: TextStyle(
+                                color: Colorscontroller.warning, fontSize: 20),
+                          ),
                         ),
                         VerticalSpace(value: 15),
                         Column(children: [
