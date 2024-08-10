@@ -28,11 +28,13 @@ class AuthCubit extends Cubit<AuthState> {
       }
       final authen =
           await _authRepo.authLogin(email: email, password: password);
+
       if (authen.error == true) {
         throw Exception('Incorrect user name and password');
       }
       if (context.mounted) {
-        context.pushReplacement('/${LandingPage.landingPageRoute}');
+        context.pushReplacement('/${LandingPage.landingPageRoute}',
+            extra: authen);
       }
       emit(AuthCompleted());
     } on Exception catch (e) {
