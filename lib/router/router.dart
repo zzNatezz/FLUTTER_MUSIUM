@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:golobe/layout/introPage/introPage.dart';
+import 'package:golobe/layout/landing_page/landing_page.dart';
 import 'package:golobe/layout/login/login.dart';
 import 'package:golobe/layout/sign_up/sign_up.dart';
 
@@ -13,9 +13,9 @@ GoRouter goRouter() {
         },
         routes: <RouteBase>[
           GoRoute(
-            path: IntroPage.IntroPageRoute,
+            path: LandingPage.landingPageRoute,
             builder: (BuildContext context, GoRouterState state) =>
-                const IntroPage(),
+                const LandingPage(),
           ),
         ]),
     GoRoute(

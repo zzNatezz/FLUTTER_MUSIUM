@@ -113,7 +113,6 @@ class _LoginFormFieldState extends State<LoginFormField> {
             )
           ],
         ),
-
         SizedBox(
           width: double.infinity,
           height: 50,

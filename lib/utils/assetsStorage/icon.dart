@@ -15,4 +15,5 @@ class IconsPath {
   static const String share = 'assets/icon/share.svg';
   static const String email = 'assets/icon/email.svg';
   static const String lock = 'assets/icon/lock.svg';
+  static const String bell = 'assets/icon/bell.svg';
 }

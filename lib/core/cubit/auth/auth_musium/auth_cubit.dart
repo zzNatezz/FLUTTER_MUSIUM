@@ -8,6 +8,7 @@ import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/auth_exept.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/gg_exept.dart';
+import 'package:golobe/layout/landing_page/landing_page.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthStart());
@@ -26,7 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
       await _authRepo.authLogin(email: email, password: password);
       if (context.mounted) {
-        context.pushReplacement('/intro');
+        context.pushReplacement('/${LandingPage.landingPageRoute}');
       }
       emit(AuthCompleted());
     } on Exception catch (e) {
@@ -34,6 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
       return AlerException(mess: e.toString()).AlertAuth(context: context);
     } catch (e) {
       emit(AuthError(e.toString()));
+      devlog.log('Un Expect Error for Dev :) --> $e');
     }
   }
 

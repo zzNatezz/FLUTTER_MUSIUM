@@ -15,7 +15,13 @@ class RegisterPage extends StatelessWidget {
           style: TextStyle(color: Colorscontroller.loginButton, fontSize: 25),
         ),
       ),
-      body: const Text('Hello'),
+      body: const Column(
+        children: [
+          Center(
+              child:
+                  Text('Regist new account', style: TextStyle(fontSize: 30))),
+        ],
+      ),
     );
   }
 }
