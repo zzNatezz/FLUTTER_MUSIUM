@@ -15,7 +15,7 @@ GoRouter goRouter() {
           GoRoute(
             path: LandingPage.landingPageRoute,
             builder: (BuildContext context, GoRouterState state) =>
-                const LandingPage(),
+                LandingPage(),
           ),
         ]),
     GoRoute(

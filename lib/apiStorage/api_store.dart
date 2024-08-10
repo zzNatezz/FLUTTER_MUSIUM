@@ -1,15 +1,15 @@
 class LoginEntity {
+  final String? id;
   final String? username;
   final String? email;
-  final String? password;
-  final String? accessToken;
-  LoginEntity({
-    this.accessToken,
-    this.username,
-    this.email,
-    this.password,
-  });
-
-  factory LoginEntity.fromJson(Map<String, dynamic> json) =>
-      LoginEntity(accessToken: json['accessToken']); //<--sai cho nay nay
+  final String? avatar;
+  final bool? isAdmin;
+  final bool? error;
+  LoginEntity(
+      {this.id,
+      this.username,
+      this.email,
+      this.avatar,
+      this.isAdmin,
+      this.error = false});
 }
