@@ -5,11 +5,11 @@ class LoginEntity {
   final String? avatar;
   final bool? isAdmin;
   final bool? error;
-  LoginEntity(
-      {this.id,
-      this.username,
-      this.email,
-      this.avatar,
-      this.isAdmin,
+  const LoginEntity(
+      {this.id = "",
+      this.username = "",
+      this.email = "",
+      this.avatar ="" ,
+      this.isAdmin = false ,
       this.error = false});
 }

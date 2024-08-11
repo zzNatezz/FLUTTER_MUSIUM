@@ -6,14 +6,15 @@ import 'package:golobe/apiStorage/api_store.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/layout/login/login.dart';
-
+import 'dart:developer' as dev;
 import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
 
 class AppbarTitle extends StatefulWidget {
+  static const String appBarRoute = 'appbar';
   final LoginEntity user;
-  const AppbarTitle({super.key, required this.user});
+  const AppbarTitle({super.key, this.user = const LoginEntity()});
 
   @override
   State<AppbarTitle> createState() => _AppbarTitleState();
@@ -60,32 +61,24 @@ class _AppbarTitleState extends State<AppbarTitle> {
                   )
                 ],
               );
-            } else {
+            }
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'SẼ update cập nhật thời tiết các kiểu ở đây', //<-- update late
+                    'Weather updated latey', //<-- update late
                     style: TextStyle(color: Colorscontroller.whitText),
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        IconsPath.bell,
-                        height: 30,
-                      ),
-                      HorizontalSpace(value: 10),
                       TextButton(
                           onPressed: () {
-                            context.pushNamed(LoginPage.loginPageRoute);
+                            // context.pushNamed(LoginPage.loginPageRoute);
+                            dev.log(widget.user.username.toString());
                           },
                           child: const Text('Login'))
-                    ],
-                  )
                 ],
               );
             }
-          }),
+          ),
     );
   }
 }

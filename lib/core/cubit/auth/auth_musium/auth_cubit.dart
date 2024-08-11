@@ -9,6 +9,7 @@ import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/auth_exept.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/gg_exept.dart';
 import 'package:golobe/layout/landing_page/landing_page.dart';
+import 'package:golobe/layout/login/login.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthStart());
@@ -31,17 +32,18 @@ class AuthCubit extends Cubit<AuthState> {
       if (authen.error == true) {
         throw Exception('Incorrect user name and password');
       }
+      emit(AuthCompleted());
       if (context.mounted) {
-        context.pushReplacement('${LandingPage.landingPageRoute}',
+        context.pushReplacement(LandingPage.landingPageRoute,
             extra: authen);
       }
-      emit(AuthCompleted());
+
     } on Exception catch (e) {
       emit(AuthCompleted());
       AlerException(mess: e.toString()).AlertAuth(context: context);
     } catch (e) {
       emit(AuthError());
-      devlog.log('Un Expect Error for Dev :) --> $e');
+      devlog.log('UnExpect Error for Dev :) --> $e');
     }
   }
 
@@ -68,7 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authRepo.logOut();
       if (context.mounted) {
-        context.pushReplacement('/');
+        context.pushReplacement('/${LoginPage.loginPageRoute}');
       }
       emit(AuthCompleted());
     } catch (e) {

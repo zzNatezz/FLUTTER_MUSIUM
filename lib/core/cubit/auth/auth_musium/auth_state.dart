@@ -10,6 +10,8 @@ class AuthStart extends AuthState {}
 
 class AuthProcessing extends AuthState {}
 
-class AuthCompleted extends AuthState {}
+class AuthCompleted extends AuthState {
+
+}
 
 class AuthError extends AuthState {}
