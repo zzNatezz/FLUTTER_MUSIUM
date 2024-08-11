@@ -37,7 +37,7 @@ class _AppbarTitleState extends State<AppbarTitle> {
             ),
             HorizontalSpace(value: 10),
             SvgPicture.asset(
-              widget.user.avatar == ""
+              widget.user.avatar == null
                   ? IconsPath.defaultAvatar
                   : widget.user.avatar.toString(),
               height: 40,
