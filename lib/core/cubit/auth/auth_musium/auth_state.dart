@@ -12,7 +12,4 @@ class AuthProcessing extends AuthState {}
 
 class AuthCompleted extends AuthState {}
 
-class AuthError extends AuthState {
-  final String error;
-  const AuthError(this.error);
-}
+class AuthError extends AuthState {}

@@ -32,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
         throw Exception('Incorrect user name and password');
       }
       if (context.mounted) {
-        context.pushReplacement('/${LandingPage.landingPageRoute}',
+        context.pushReplacement('${LandingPage.landingPageRoute}',
             extra: authen);
       }
       emit(AuthCompleted());
@@ -40,7 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthCompleted());
       AlerException(mess: e.toString()).AlertAuth(context: context);
     } catch (e) {
-      emit(AuthError(e.toString()));
+      emit(AuthError());
       devlog.log('Un Expect Error for Dev :) --> $e');
     }
   }
@@ -55,10 +55,10 @@ class AuthCubit extends Cubit<AuthState> {
         context.pushReplacement('/intro');
       }
     } on NoGoogleAccountChosenException {
-      emit(AuthCompleted());
+      emit(AuthError());
       return;
     } catch (e) {
-      emit(AuthError(e.toString()));
+      emit(AuthError());
       if (!context.mounted) return;
       devlog.log('Sign In GG error due to $e');
     }
@@ -70,6 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (context.mounted) {
         context.pushReplacement('/');
       }
+      emit(AuthCompleted());
     } catch (e) {
       devlog.log('Sever errorrss....');
     }

@@ -4,7 +4,7 @@ import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
 import 'package:golobe/layout/landing_page/components/appbar_title.dart';
 
 class LandingPage extends StatelessWidget {
-  static const landingPageRoute = 'landing';
+  static const landingPageRoute = '/';
   final LoginEntity user;
   final AuthCubit authCubit = AuthCubit();
   LandingPage({super.key, required this.user});

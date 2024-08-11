@@ -31,7 +31,6 @@ class AuthRepo {
       final jsondecodde = jsonDecode(jsonEncodde);
 
       final decoded = JWT.decode(jsondecodde);
-      print('decode ---> ${decoded.payload}');
 
       if (req.statusCode == 200) {
         return LoginEntity(

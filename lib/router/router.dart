@@ -5,6 +5,7 @@ import 'package:golobe/layout/landing_page/landing_page.dart';
 import 'package:golobe/layout/login/login.dart';
 import 'package:golobe/layout/sign_up/sign_up.dart';
 
+
 GoRouter goRouter() {
   return GoRouter(initialLocation: '/', routes: <RouteBase>[
     GoRoute(
@@ -15,12 +16,14 @@ GoRouter goRouter() {
         routes: <RouteBase>[
           GoRoute(
               path: LandingPage.landingPageRoute,
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  MaterialPage(
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return MaterialPage(
                       fullscreenDialog: true,
-                      child: LandingPage(user: state.extra as LoginEntity))),
-        ]),
+
+                      child: LandingPage(user: state.extra as LoginEntity));
+              })]),
     GoRoute(
+      name: RegisterPage.registerPageRoute,
       path: RegisterPage.registerPageRoute,
       builder: (BuildContext context, GoRouterState state) =>
           const RegisterPage(),
