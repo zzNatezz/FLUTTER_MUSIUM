@@ -26,11 +26,11 @@ class AuthRepo {
       };
       Response req = await dio.post(ApiPath.loginEndPoint, data: data);
 
-      final jsonEncodde = jsonEncode(req.data);
+      final jsonEncoded = jsonEncode(req.data);
 
-      final jsondecodde = jsonDecode(jsonEncodde);
+      final jsonDecoded = jsonDecode(jsonEncoded);
 
-      final decoded = JWT.decode(jsondecodde);
+      final decoded = JWT.decode(jsonDecoded);
 
       if (req.statusCode == 200) {
         return LoginEntity(
@@ -40,11 +40,11 @@ class AuthRepo {
             avatar: decoded.payload['avatar'],
             isAdmin: decoded.payload['admin']);
       } else {
-        throw LoginEntity(error: true);
+        throw const LoginEntity(error: true);
       }
     } catch (e) {
       devlog.log("login failed due to -> $e");
-      return LoginEntity(error: true);
+      return const LoginEntity(error: true);
     }
   }
 

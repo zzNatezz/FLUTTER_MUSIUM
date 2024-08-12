@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:golobe/apiStorage/api_store.dart';
 import 'dart:developer' as devlog;
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
@@ -26,18 +27,16 @@ class AuthCubit extends Cubit<AuthState> {
       if (email.length < 5) {
         throw Exception("User name is too short");
       }
-      final authen =
+      final LoginEntity? authen =
           await _authRepo.authLogin(email: email, password: password);
 
-      if (authen.error == true) {
+      if (authen?.error == true) {
         throw Exception('Incorrect user name and password');
       }
       emit(AuthCompleted());
       if (context.mounted) {
-        context.pushReplacement(LandingPage.landingPageRoute,
-            extra: authen);
+        context.pushReplacement(LandingPage.landingPageRoute, extra: authen);
       }
-
     } on Exception catch (e) {
       emit(AuthCompleted());
       AlerException(mess: e.toString()).AlertAuth(context: context);

@@ -6,10 +6,10 @@ class LoginEntity {
   final bool? isAdmin;
   final bool? error;
   const LoginEntity(
-      {this.id = "",
-      this.username = "",
-      this.email = "",
-      this.avatar ="" ,
+      {this.id ,
+      this.username,
+      this.email ,
+      this.avatar,
       this.isAdmin = false ,
       this.error = false});
 }
