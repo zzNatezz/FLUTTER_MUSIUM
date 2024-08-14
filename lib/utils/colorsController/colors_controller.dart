@@ -5,4 +5,5 @@ class Colorscontroller {
   static const Color loginButton = Colors.cyan;
   static const Color whitText = Colors.white;
   static const Color warning = Colors.redAccent;
+  static const Color blue = Colors.lightBlue;
 }

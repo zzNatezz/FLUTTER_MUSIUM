@@ -15,15 +15,7 @@ class LandingPage extends StatelessWidget {
       appBar: AppBar(
           backgroundColor: Colors.lightBlue.shade200,
           title: AppbarTitle(user: user)),
-      body: Column(
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                authCubit.Logout(context: context);
-              },
-              child: const Text('LogOut temporary'))
-        ],
-      ),
+      body: const Text(' dsada'),
     );
   }
 }

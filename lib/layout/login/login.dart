@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:golobe/layout/landing_page/landing_page.dart";
 import "package:golobe/layout/login/components/auth_service.dart";
 import "package:golobe/layout/login/components/login_form_field.dart";
 import "package:golobe/layout/sign_up/sign_up.dart";
@@ -55,15 +56,30 @@ class LoginPage extends StatelessWidget {
                               TextStyle(color: Colorscontroller.hintTextLogin),
                         ),
                         VerticalSpace(value: 15),
-                        TextButton(
-                          onPressed: () {
-                            context.push(RegisterPage.registerPageRoute);
-                          },
-                          child: const Text(
-                            "SignUp ?",
-                            style: TextStyle(
-                                color: Colorscontroller.warning, fontSize: 20),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                context.push(RegisterPage.registerPageRoute);
+                              },
+                              child: const Text(
+                                "SignUp ?",
+                                style: TextStyle(
+                                    color: Colorscontroller.warning,
+                                    fontSize: 20),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context.go(LandingPage.landingPageRoute);
+                              },
+                              child: const Text('Review App ?',
+                                  style: TextStyle(
+                                      color: Colorscontroller.blue,
+                                      fontSize: 20)),
+                            )
+                          ],
                         ),
                         VerticalSpace(value: 15),
                         Column(children: [
