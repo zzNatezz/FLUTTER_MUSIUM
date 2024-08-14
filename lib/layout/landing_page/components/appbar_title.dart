@@ -61,7 +61,7 @@ class _AppbarTitleState extends State<AppbarTitle> {
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colorscontroller.whitText),
             onPressed: () {
-              context.go(LoginPage.loginPageRoute);
+              context.go('/${LoginPage.loginPageRoute}');
             },
             child: const Text(
               'Login',
