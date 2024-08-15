@@ -28,9 +28,22 @@ class _AppbarTitleState extends State<AppbarTitle> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Hello ${widget.user?.username}',
-            style: const TextStyle(color: Colorscontroller.whitText),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Welcome back !!!',
+                style:
+                    TextStyle(color: Colorscontroller.whitText, fontSize: 18),
+              ),
+              Text(
+                '${widget.user?.username}',
+                style: const TextStyle(
+                    color: Colorscontroller.black26,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
           Row(
             children: [
@@ -50,6 +63,7 @@ class _AppbarTitleState extends State<AppbarTitle> {
         ],
       );
     }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

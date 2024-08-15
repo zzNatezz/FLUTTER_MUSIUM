@@ -1,10 +1,11 @@
+import 'dart:developer' as devlog;
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:golobe/apiStorage/api_store.dart';
-import 'dart:developer' as devlog;
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/auth_exept.dart';
@@ -46,14 +47,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  //Google
+  //Google // Can update shown ten user ra
 
   Future<void> SignInWithGG({required BuildContext context}) async {
     try {
       emit(AuthProcessing());
       await _authRepo.signInWithGoogle();
       if (context.mounted) {
-        context.pushReplacement('/intro');
+        context.pushReplacement(LandingPage.landingPageRoute);
       }
     } on NoGoogleAccountChosenException {
       emit(AuthError());
