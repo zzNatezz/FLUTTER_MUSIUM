@@ -52,12 +52,17 @@ class _AppbarTitleState extends State<AppbarTitle> {
                 height: 30,
               ),
               HorizontalSpace(value: 10),
-              SvgPicture.asset(
-                widget.user?.avatar == null
-                    ? IconsPath.defaultAvatar
-                    : widget.user!.avatar.toString(),
-                height: 40,
-              )
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.network(
+                    widget.user!.avatar,
+                    height: 40,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return SvgPicture.asset(IconsPath.defaultAvatar,
+                          height: 40);
+                    },
+                  )),
             ],
           )
         ],

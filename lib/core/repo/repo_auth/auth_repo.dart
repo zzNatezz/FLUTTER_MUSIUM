@@ -10,8 +10,7 @@ import 'package:golobe/core/repo/repo_auth/exceptions/gg_exept.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepo {
-  // final ApiClient _apiClient = ApiClient();
-  static final _auth_fb = FirebaseAuth.instance;
+  final FirebaseAuth _auth_fb = FirebaseAuth.instance;
   final dio = Dio();
   Future<LoginEntity> authLogin({
     BuildContext? context,
@@ -19,20 +18,18 @@ class AuthRepo {
     required String password,
   }) async {
     try {
-      final dio = Dio();
       final Map<String, dynamic> data = {
         'username': email,
         'password': password,
       };
       Response req = await dio.post(ApiPath.loginEndPoint, data: data);
 
-      final jsonEncoded = jsonEncode(req.data);
-
-      final jsonDecoded = jsonDecode(jsonEncoded);
-
-      final decoded = JWT.decode(jsonDecoded);
-
       if (req.statusCode == 200) {
+        final jsonEncoded = jsonEncode(req.data);
+
+        final jsonDecoded = jsonDecode(jsonEncoded);
+
+        final decoded = JWT.decode(jsonDecoded);
         return LoginEntity(
             id: decoded.payload['_id'],
             username: decoded.payload['username'],
@@ -48,7 +45,7 @@ class AuthRepo {
     }
   }
 
-  //Sing with Googl;e
+  //Sing with Google
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

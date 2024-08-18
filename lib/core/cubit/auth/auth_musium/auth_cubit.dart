@@ -1,6 +1,7 @@
 import 'dart:developer' as devlog;
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -52,9 +53,15 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> SignInWithGG({required BuildContext context}) async {
     try {
       emit(AuthProcessing());
-      await _authRepo.signInWithGoogle();
+      final UserCredential authResult = await _authRepo.signInWithGoogle();
+      final User? user = authResult.user;
+      final LoginEntity? authen = LoginEntity(
+          username: user?.displayName,
+          email: user?.email,
+          id: user?.uid,
+          avatar: user?.photoURL as String);
       if (context.mounted) {
-        context.pushReplacement(LandingPage.landingPageRoute);
+        context.pushReplacement(LandingPage.landingPageRoute, extra: authen);
       }
     } on NoGoogleAccountChosenException {
       emit(AuthError());
@@ -62,7 +69,7 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(AuthError());
       if (!context.mounted) return;
-      devlog.log('Sign In GG error due to $e');
+      devlog.log('Sign In GG error due to --> $e');
     }
   }
 
@@ -74,7 +81,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
       emit(AuthCompleted());
     } catch (e) {
-      devlog.log('Sever errorrss....');
+      devlog.log('Sever Error....');
     }
   }
 }

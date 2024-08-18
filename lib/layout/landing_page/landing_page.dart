@@ -24,6 +24,11 @@ class LandingPage extends StatelessWidget {
           children: [
             HistoryList(),
             Text(' dsada'),
+            ElevatedButton(
+                onPressed: () {
+                  authCubit.Logout(context: context);
+                },
+                child: Text('Logout'))
           ],
         ),
       ),
