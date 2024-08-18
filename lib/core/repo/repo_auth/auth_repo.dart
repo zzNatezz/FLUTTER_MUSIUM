@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:golobe/apiStorage/api_store.dart';
+import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'dart:developer' as devlog;
 import 'package:golobe/core/consttants/api_path.dart';
 import 'package:dio/dio.dart';
@@ -23,7 +23,6 @@ class AuthRepo {
         'password': password,
       };
       Response req = await dio.post(ApiPath.loginEndPoint, data: data);
-
       if (req.statusCode == 200) {
         final jsonEncoded = jsonEncode(req.data);
 
@@ -34,7 +33,7 @@ class AuthRepo {
             id: decoded.payload['_id'],
             username: decoded.payload['username'],
             email: decoded.payload['email'],
-            avatar: decoded.payload['avatar'],
+            avatar: decoded.payload['avatar'] ?? "",
             isAdmin: decoded.payload['admin']);
       } else {
         throw const LoginEntity(error: true);

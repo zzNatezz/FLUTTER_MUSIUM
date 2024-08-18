@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:golobe/apiStorage/api_store.dart';
+import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_state.dart';
 import 'package:golobe/core/repo/repo_auth/auth_repo.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/auth_exept.dart';
@@ -29,10 +29,10 @@ class AuthCubit extends Cubit<AuthState> {
       if (email.length < 5) {
         throw Exception("User name is too short");
       }
-      final LoginEntity? authen =
+      final LoginEntity authen =
           await _authRepo.authLogin(email: email, password: password);
 
-      if (authen?.error == true) {
+      if (authen.error == true) {
         throw Exception('Incorrect user name and password');
       }
       emit(AuthCompleted());
@@ -48,14 +48,13 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  //Google // Can update shown ten user ra
-
+  //Google
   Future<void> SignInWithGG({required BuildContext context}) async {
     try {
       emit(AuthProcessing());
       final UserCredential authResult = await _authRepo.signInWithGoogle();
       final User? user = authResult.user;
-      final LoginEntity? authen = LoginEntity(
+      final LoginEntity authen = LoginEntity(
           username: user?.displayName,
           email: user?.email,
           id: user?.uid,

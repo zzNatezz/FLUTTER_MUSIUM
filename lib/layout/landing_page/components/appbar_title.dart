@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:golobe/apiStorage/api_store.dart';
+import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/layout/login/login.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
 
 class AppbarTitle extends StatefulWidget {
-  static const String appBarRoute = 'appbar';
   final LoginEntity? user;
   const AppbarTitle({super.key, this.user});
 
@@ -55,7 +54,7 @@ class _AppbarTitleState extends State<AppbarTitle> {
               ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
                   child: Image.network(
-                    widget.user!.avatar,
+                    widget.user?.avatar as String,
                     height: 40,
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {

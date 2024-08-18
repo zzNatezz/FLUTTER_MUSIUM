@@ -8,5 +8,15 @@ import 'package:golobe/core/repo/repo_history_list/history_list_repo.dart';
 class HistoryCubit extends Cubit<HistoryState> {
   HistoryCubit() : super(HistoryStart());
   final HistoryListRepo _historyListRepo = HistoryListRepo();
-  // Future<void> histroyList(){ try() }
+  Future<void> listenedSong(String userId) async {
+    try {
+      emit(HistoryProcessing());
+      final fetchData = await _historyListRepo.fetchHistory(userId);
+      if (fetchData == []) throw Error();
+      emit(HistoryCompleted());
+    } catch (e) {
+      emit(HistoryError());
+      dev.log(e.toString());
+    }
+  }
 }

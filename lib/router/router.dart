@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:golobe/apiStorage/api_store.dart';
+import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/layout/landing_page/landing_page.dart';
 import 'package:golobe/layout/login/login.dart';
 import 'package:golobe/layout/sign_up/sign_up.dart';

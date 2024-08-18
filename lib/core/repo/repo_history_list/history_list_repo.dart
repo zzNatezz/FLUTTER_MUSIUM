@@ -3,7 +3,7 @@ import 'dart:developer' as dev;
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
-import 'package:golobe/apiStorage/api_store.dart';
+import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/consttants/api_path.dart';
 
 class HistoryListRepo {
@@ -17,19 +17,22 @@ class HistoryListRepo {
         final jsonDecodedd = jsonDecode(jsonEndcoded);
         final decoded = JWT.decode(jsonDecodedd);
         List<SongEntity> songs = [];
-        for (int index in decoded.payload.length - 1) {
+        for (dynamic i in decoded.payload) {
           SongEntity song = SongEntity(
-              id: decoded.payload['_id'],
-              title: decoded.payload['title'],
-              author: decoded.payload['author'],
-              image: decoded.payload['image'].url,
-              song: decoded.payload['song'].url,
-              view: decoded.payload['view']);
+              id: i['_id'],
+              title: i['title'],
+              author: i['author'],
+              image: i['image'],
+              song: i['song'],
+              view: i['view']);
           songs.add(song);
         }
+        dev.log('songs ---> ${songs.toString()}');
         return songs;
       } else {
-        throw Exception('Listened list is on error');
+        dev.log('Danh sách nghe lại đang bị lỗi');
+        final List<SongEntity> songs = [];
+        return songs;
       }
     } catch (e) {
       dev.log('Error --> ${e.toString()}');
