@@ -23,7 +23,7 @@ class LandingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const HistoryList(),
+            HistoryList(userId: user?.id),
             const Text(' dsada'),
             ElevatedButton(
                 onPressed: () {

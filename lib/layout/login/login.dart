@@ -44,12 +44,6 @@ class LoginPage extends StatelessWidget {
                                     fontSize: 60, fontWeight: FontWeight.bold)),
                           ),
                         ),
-                        const Align(
-                          alignment: Alignment(-1, 0),
-                          child: Text('Login to access your account',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w200)),
-                        ),
                         VerticalSpace(value: 30),
                         const LoginFormField(
                           hintStyle:

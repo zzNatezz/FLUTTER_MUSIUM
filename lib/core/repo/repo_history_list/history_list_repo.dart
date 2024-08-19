@@ -5,6 +5,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/consttants/api_path.dart';
+import 'package:golobe/utils/jwtdecoded.dart';
 
 class HistoryListRepo {
   final dio = Dio();
@@ -13,29 +14,29 @@ class HistoryListRepo {
       final req = await dio.get('${ApiPath.HistorySongEP}/$userId');
 
       if (req.statusCode == 200) {
-        final jsonEndcoded = jsonEncode(req.data);
-        final jsonDecodedd = jsonDecode(jsonEndcoded);
-        final decoded = JWT.decode(jsonDecodedd);
+        final decoded = jwtdecode(req.data);
+
         List<SongEntity> songs = [];
-        for (dynamic i in decoded.payload) {
+        late Map<String, dynamic> value;
+        for (value in decoded.payload.values) {
           SongEntity song = SongEntity(
-              id: i['_id'],
-              title: i['title'],
-              author: i['author'],
-              image: i['image'],
-              song: i['song'],
-              view: i['view']);
+              id: value['_id'],
+              title: value['title'],
+              author: value['author'],
+              image: value['image'],
+              song: value['song'],
+              view: value['view']);
           songs.add(song);
         }
-        dev.log('songs ---> ${songs.toString()}');
+        print(songs);
         return songs;
       } else {
-        dev.log('Danh sách nghe lại đang bị lỗi');
+        dev.log('hist_list repo line 35');
         final List<SongEntity> songs = [];
         return songs;
       }
     } catch (e) {
-      dev.log('Error --> ${e.toString()}');
+      dev.log('hist_list repo line 40 --> ${e.toString()}');
       final List<SongEntity> songs = [];
       return songs;
     }
