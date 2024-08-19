@@ -1,7 +1,4 @@
-import 'dart:convert';
 import 'dart:developer' as dev;
-
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/consttants/api_path.dart';
@@ -17,18 +14,22 @@ class HistoryListRepo {
         final decoded = jwtdecode(req.data);
 
         List<SongEntity> songs = [];
-        late Map<String, dynamic> value;
+        late dynamic value;
+
         for (value in decoded.payload.values) {
-          SongEntity song = SongEntity(
-              id: value['_id'],
-              title: value['title'],
-              author: value['author'],
-              image: value['image'],
-              song: value['song'],
-              view: value['view']);
-          songs.add(song);
+          if (value is Map<String, dynamic>) {
+            SongEntity song = SongEntity(
+                id: value['_id'],
+                title: value['title'],
+                author: value['author'],
+                image: value['image'],
+                song: value['song'],
+                view: value['view']);
+            songs.add(song);
+          } else {
+            break;
+          }
         }
-        print(songs);
         return songs;
       } else {
         dev.log('hist_list repo line 35');
