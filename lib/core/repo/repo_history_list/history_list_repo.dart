@@ -6,10 +6,10 @@ import 'package:golobe/utils/jwtdecoded.dart';
 
 class HistoryListRepo {
   final dio = Dio();
-  Future<List<SongEntity>> fetchHistory(String userId) async {
+  Future<List<SongEntity>> fetchHistory({String userId = ""}) async {
     try {
+      if (userId == "") throw Error();
       final req = await dio.get('${ApiPath.HistorySongEP}/$userId');
-
       if (req.statusCode == 200) {
         final decoded = jwtdecode(req.data);
 

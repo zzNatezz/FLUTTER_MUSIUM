@@ -9,7 +9,7 @@ class LandingPage extends StatelessWidget {
   static const landingPageRoute = '/';
   final LoginEntity? user;
   final AuthCubit authCubit = AuthCubit();
-  LandingPage({super.key, required this.user});
+  LandingPage({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {

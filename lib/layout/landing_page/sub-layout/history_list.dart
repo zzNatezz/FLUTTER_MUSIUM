@@ -1,54 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
-
 import 'package:golobe/core/cubit/fetch_data/history/history_cubit.dart';
+import 'package:golobe/utils/colorsController/colors_controller.dart';
+import 'package:golobe/utils/round_image.dart';
+import 'package:golobe/utils/spaceController/spaces_controller.dart';
 
 class HistoryList extends StatefulWidget {
   final String? userId;
-  const HistoryList({super.key, required this.userId});
+  const HistoryList({super.key, this.userId = ""});
 
   @override
   State<HistoryList> createState() => _HistoryListState();
 }
 
 class _HistoryListState extends State<HistoryList> {
-  late HistoryCubit _historyCubit;
-  late Future<List<SongEntity>> songs;
+  Future<List<SongEntity>> _convert() async {
+    final HistoryCubit historyCubit = HistoryCubit();
+    final listSong = await historyCubit.listenedSong(widget.userId as String);
+    print(listSong);
+    return listSong;
+  }
 
   @override
   void initState() {
-    _historyCubit = HistoryCubit();
     super.initState();
-    // songs = _historyCubit.listenedSong(widget.userId as String);
   }
 
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: FutureBuilder<List<SongEntity>>(
-    //       future: songs,
-    //       builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //         if (snapshot.hasData) {
-    //           return ListView.builder(
-    //               itemCount: snapshot.data.lengh,
-    //               itemBuilder: (context, index) {
-    //                 ListTile(
-    //                   title: Text(snapshot.data[index].titlle),
-    //                 );
-    //                 return null;
-    //               });
-    //         } else if (snapshot.hasError) {
-    //           return Text(snapshot.error.toString());
-    //         } else {
-    //           return const CircularProgressIndicator();
-    //         }
-    //       }),
-    // );
-    return ElevatedButton(
-      onPressed: () {
-        _historyCubit.listenedSong(widget.userId as String);
-      },
-      child: const Text('Click me'),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 500,
+          width: MediaQuery.sizeOf(context).width,
+          child: Center(
+            child: FutureBuilder<List<SongEntity>>(
+                future: _convert(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 32.0),
+                            child: Column(
+                              children: [
+                                RoundImage(
+                                    url: snapshot.data[index].image['url']),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: SizedBox(
+                                    width: 100,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        snapshot.data[index].title,
+                                        overflow: TextOverflow.fade,
+                                        maxLines: 1,
+                                        softWrap: false,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          // Column(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       RoundImage(
+                          //           url: snapshot.data[index].image['url']),
+                          //       VerticalSpace(value: 10),
+                          //       SizedBox(
+                          //           width: 100,
+                          //           child: Text(snapshot.data[index].title))
+                          //     ]);
+                        });
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.hasError.toString());
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                }),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -12,7 +12,7 @@ class HistoryCubit extends Cubit<HistoryState> {
   Future<List<SongEntity>> listenedSong(String userId) async {
     try {
       emit(HistoryProcessing());
-      final fetchData = await _historyListRepo.fetchHistory(userId);
+      final fetchData = await _historyListRepo.fetchHistory(userId: userId);
       if (fetchData == []) throw Exception();
       emit(HistoryCompleted());
       return fetchData;
