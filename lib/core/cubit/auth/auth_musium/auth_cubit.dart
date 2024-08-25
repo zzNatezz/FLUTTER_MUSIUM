@@ -23,15 +23,8 @@ class AuthCubit extends Cubit<AuthState> {
       required BuildContext context}) async {
     try {
       emit(AuthProcessing());
-      if (email.isEmpty || password.isEmpty) {
-        throw Exception("User name and password can't be empty");
-      }
-      if (email.length < 5) {
-        throw Exception("User name is too short");
-      }
       final LoginEntity authen =
           await _authRepo.authLogin(email: email, password: password);
-
       if (authen.error == true) {
         throw Exception('Incorrect user name and password');
       }

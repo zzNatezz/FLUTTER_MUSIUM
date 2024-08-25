@@ -44,11 +44,10 @@ class _HistoryListState extends State<HistoryList> {
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(top: 32.0),
+                            padding: const EdgeInsets.only(top: 30.0),
                             child: Column(
                               children: [
-                                RoundImage(
-                                    url: snapshot.data[index].image['url']),
+                                RoundImage(snapshot.data[index].image['url']),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: SizedBox(
@@ -67,17 +66,6 @@ class _HistoryListState extends State<HistoryList> {
                               ],
                             ),
                           );
-
-                          // Column(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       RoundImage(
-                          //           url: snapshot.data[index].image['url']),
-                          //       VerticalSpace(value: 10),
-                          //       SizedBox(
-                          //           width: 100,
-                          //           child: Text(snapshot.data[index].title))
-                          //     ]);
                         });
                   } else if (snapshot.hasError) {
                     return Text(snapshot.hasError.toString());
