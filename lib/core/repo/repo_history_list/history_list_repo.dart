@@ -2,7 +2,7 @@ import 'dart:developer' as dev;
 import 'package:dio/dio.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/consttants/api_path.dart';
-import 'package:golobe/utils/jwtdecoded.dart';
+import 'package:golobe/utils/mini_widgets.dart';
 
 class HistoryListRepo {
   final dio = Dio();

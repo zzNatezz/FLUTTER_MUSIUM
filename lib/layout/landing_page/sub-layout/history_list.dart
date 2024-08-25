@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/history/history_cubit.dart';
-import 'package:golobe/utils/colorsController/colors_controller.dart';
-import 'package:golobe/utils/round_image.dart';
-import 'package:golobe/utils/spaceController/spaces_controller.dart';
+import 'package:golobe/utils/round_text_center.dart';
 
 class HistoryList extends StatefulWidget {
   final String? userId;
@@ -43,32 +41,12 @@ class _HistoryListState extends State<HistoryList> {
                         scrollDirection: Axis.horizontal,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
-                            child: Column(
-                              children: [
-                                RoundImage(snapshot.data[index].image['url']),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        snapshot.data[index].title,
-                                        overflow: TextOverflow.fade,
-                                        maxLines: 1,
-                                        softWrap: false,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
+                          return roundTextCenter(
+                              imgUrl: snapshot.data[index].image['url'],
+                              songTitle: snapshot.data[index].title);
                         });
                   } else if (snapshot.hasError) {
-                    return Text(snapshot.hasError.toString());
+                    return const Text("Login to see your list song");
                   } else {
                     return const CircularProgressIndicator();
                   }

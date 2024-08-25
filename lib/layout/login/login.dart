@@ -6,7 +6,7 @@ import "package:golobe/layout/login/components/login_form_field.dart";
 import "package:golobe/layout/sign_up/sign_up.dart";
 import "package:golobe/utils/assetsStorage/picture.dart";
 import 'package:golobe/utils/colorsController/colors_controller.dart';
-import "package:golobe/utils/divider_with_text.dart";
+import "package:golobe/utils/mini_widgets.dart";
 import "package:golobe/utils/spaceController/spaces_controller.dart";
 import 'package:google_fonts/google_fonts.dart';
 
