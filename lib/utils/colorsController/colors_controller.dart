@@ -8,4 +8,5 @@ class Colorscontroller {
   static const Color blue = Colors.lightBlue;
   static const Color grey = Colors.grey;
   static const Color black26 = Colors.orangeAccent;
+  static Color grey2 = Colors.grey.shade200;
 }

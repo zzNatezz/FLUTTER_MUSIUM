@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/history/history_cubit.dart';
 import 'package:golobe/utils/round_text_center.dart';
+import 'package:just_audio/just_audio.dart';
 
 class HistoryList extends StatefulWidget {
   final String? userId;
@@ -12,10 +13,19 @@ class HistoryList extends StatefulWidget {
 }
 
 class _HistoryListState extends State<HistoryList> {
+  final player = AudioPlayer();
+  void handlePlayer(String songUrl) {
+    player.setUrl(songUrl);
+    if (player.playing) {
+      player.pause();
+    } else {
+      player.play();
+    }
+  }
+
   Future<List<SongEntity>> _convert() async {
     final HistoryCubit historyCubit = HistoryCubit();
     final listSong = await historyCubit.listenedSong(widget.userId as String);
-    print(listSong);
     return listSong;
   }
 
@@ -41,9 +51,19 @@ class _HistoryListState extends State<HistoryList> {
                         scrollDirection: Axis.horizontal,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          return roundTextCenter(
-                              imgUrl: snapshot.data[index].image['url'],
-                              songTitle: snapshot.data[index].title);
+                          return Column(
+                            children: [
+                              roundTextCenter(
+                                  imgUrl: snapshot.data[index].image['url'],
+                                  songTitle: snapshot.data[index].title),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    handlePlayer(
+                                        snapshot.data[index].song['url']);
+                                  },
+                                  child: const Text('play'))
+                            ],
+                          );
                         });
                   } else if (snapshot.hasError) {
                     return const Text("Login to see your list song");
