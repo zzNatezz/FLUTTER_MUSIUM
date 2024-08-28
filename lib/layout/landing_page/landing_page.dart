@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
+import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/layout/landing_page/components/appbar_title.dart';
 import 'package:golobe/layout/landing_page/sub-layout/history_list.dart';
 import 'package:golobe/layout/landing_page/sub-layout/play_music_area.dart';
@@ -10,6 +11,7 @@ class LandingPage extends StatelessWidget {
   static const landingPageRoute = '/';
   final LoginEntity? user;
   final AuthCubit authCubit = AuthCubit();
+  final SongEmitCubit _triggerSongCb = SongEmitCubit();
   LandingPage({super.key, this.user});
 
   @override
@@ -27,7 +29,10 @@ class LandingPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: [
-                      HistoryList(userId: user?.id),
+                      HistoryList(
+                        userId: user?.id,
+                        triggerSongCb: _triggerSongCb,
+                      ),
                       ElevatedButton(
                           onPressed: () {
                             authCubit.Logout(context: context);
@@ -36,11 +41,11 @@ class LandingPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const PlayMusicArea()
+                PlayMusicArea(triggerSongCb: _triggerSongCb)
               ],
             ),
           ),
         ]),
-        bottomSheet: const Text('Hande navigate area'));
+        bottomSheet: const Text('Handle navigate area'));
   }
 }

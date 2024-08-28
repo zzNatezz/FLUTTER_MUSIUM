@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/history/history_cubit.dart';
+import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/utils/round_text_center.dart';
-import 'package:just_audio/just_audio.dart';
 
 class HistoryList extends StatefulWidget {
   final String? userId;
-  const HistoryList({super.key, this.userId = ""});
+  final SongEmitCubit triggerSongCb;
+  const HistoryList({super.key, this.userId = "", required this.triggerSongCb});
 
   @override
   State<HistoryList> createState() => _HistoryListState();
 }
 
 class _HistoryListState extends State<HistoryList> {
-  final player = AudioPlayer();
-  void handlePlayer(String songUrl) {
-    player.setUrl(songUrl);
-    if (player.playing) {
-      player.pause();
-    } else {
-      player.play();
-    }
-  }
+  late HistoryCubit historyCubit;
+  // final player = AudioPlayer();
+  // Future<void> handlePlayer(String songUrl) async {
+  //   await player.setUrl(songUrl);
+  //   if (player.playing) {
+  //     player.pause();
+  //   } else {
+  //     player.play();
+  //   }
+  // }
 
   Future<List<SongEntity>> _convert() async {
-    final HistoryCubit historyCubit = HistoryCubit();
     final listSong = await historyCubit.listenedSong(widget.userId as String);
     return listSong;
   }
@@ -32,6 +33,7 @@ class _HistoryListState extends State<HistoryList> {
   @override
   void initState() {
     super.initState();
+    historyCubit = HistoryCubit();
   }
 
   @override
@@ -40,7 +42,7 @@ class _HistoryListState extends State<HistoryList> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: 500,
+          height: 200,
           width: MediaQuery.sizeOf(context).width,
           child: Center(
             child: FutureBuilder<List<SongEntity>>(
@@ -51,18 +53,14 @@ class _HistoryListState extends State<HistoryList> {
                         scrollDirection: Axis.horizontal,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              roundTextCenter(
-                                  imgUrl: snapshot.data[index].image['url'],
-                                  songTitle: snapshot.data[index].title),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    handlePlayer(
-                                        snapshot.data[index].song['url']);
-                                  },
-                                  child: const Text('play'))
-                            ],
+                          return TextButton(
+                            onPressed: () {
+                              widget.triggerSongCb
+                                  .triggerSong(snapshot.data[index]);
+                            },
+                            child: roundTextCenter(
+                                imgUrl: snapshot.data[index].image['url'],
+                                songTitle: snapshot.data[index].title),
                           );
                         });
                   } else if (snapshot.hasError) {

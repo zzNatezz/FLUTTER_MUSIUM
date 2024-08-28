@@ -1,0 +1,22 @@
+part of 'song_emit_cubit.dart';
+
+sealed class SongEmitState extends Equatable {
+  const SongEmitState();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class SongEmitInitial extends SongEmitState {}
+
+final class SongEmitLoading extends SongEmitState {}
+
+final class SongEmitTrigger extends SongEmitState {
+  final SongEntity TriggedSong;
+  const SongEmitTrigger({required this.TriggedSong});
+}
+
+final class SongEmitError extends SongEmitState {
+  final dynamic error;
+  const SongEmitError({required this.error});
+}
