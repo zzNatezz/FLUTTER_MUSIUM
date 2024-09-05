@@ -38,7 +38,7 @@ class _AppbarTitleState extends State<AppbarTitle> {
               Text(
                 '${widget.user?.username}',
                 style: const TextStyle(
-                    color: Colorscontroller.black26,
+                    color: Colorscontroller.orange,
                     fontSize: 22,
                     fontWeight: FontWeight.bold),
               ),

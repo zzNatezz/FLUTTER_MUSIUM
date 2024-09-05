@@ -15,15 +15,6 @@ class HistoryList extends StatefulWidget {
 
 class _HistoryListState extends State<HistoryList> {
   late HistoryCubit historyCubit;
-  // final player = AudioPlayer();
-  // Future<void> handlePlayer(String songUrl) async {
-  //   await player.setUrl(songUrl);
-  //   if (player.playing) {
-  //     player.pause();
-  //   } else {
-  //     player.play();
-  //   }
-  // }
 
   Future<List<SongEntity>> _convert() async {
     final listSong = await historyCubit.listenedSong(widget.userId as String);
