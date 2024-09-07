@@ -70,6 +70,10 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                             )
                           ],
                         ),
+                        playingController(
+                            isPlaying: isPlaying,
+                            playingFactory:
+                                handlePlayer(state.TriggedSong.song!['url'])),
                       ],
                     ),
                     Slider(
@@ -83,10 +87,6 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(formatTime(currentTime)),
-                          playingController(
-                              isPlaying: isPlaying,
-                              playingFactory:
-                                  handlePlayer(state.TriggedSong.song!['url'])),
                           Text(formatTime(finishTime))
                         ],
                       ),

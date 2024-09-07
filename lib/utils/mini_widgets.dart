@@ -54,10 +54,11 @@ String formatTime(Duration duration) {
 CircleAvatar playingController(
     {required bool isPlaying, required dynamic playingFactory}) {
   return CircleAvatar(
-    radius: 30,
+    radius: 20,
     child: IconButton(
-        icon: SvgPicture.asset(isPlaying ? IconsPath.play : IconsPath.pause),
-        iconSize: 30,
-        onPressed: () => playingFactory),
+      iconSize: 30,
+      onPressed: () => playingFactory,
+      icon: SvgPicture.asset(isPlaying ? IconsPath.play : IconsPath.pause),
+    ),
   );
 }
