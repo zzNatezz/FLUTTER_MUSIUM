@@ -4,7 +4,7 @@ import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class PlayMusicArea extends StatefulWidget {
   final SongEmitCubit triggerSongCb;
@@ -22,12 +22,22 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
 
   Future<void> handlePlayer(String songUrl) async {
     isPlaying.value = !isPlaying.value;
-    await player.setUrl(songUrl);
-    if (player.playing) {
+    if (isPlaying.value == true) {
       player.pause();
     } else {
-      player.play();
+      await player.play(UrlSource(songUrl));
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
   }
 
   @override
