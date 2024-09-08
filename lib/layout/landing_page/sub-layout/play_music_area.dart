@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
-import 'package:golobe/utils/assetsStorage/icon.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
@@ -19,8 +17,8 @@ class PlayMusicArea extends StatefulWidget {
 class _PlayMusicAreaState extends State<PlayMusicArea> {
   final player = AudioPlayer();
   ValueNotifier<bool> isPlaying = ValueNotifier(false);
-  Duration finishTime = Duration.zero;
-  Duration currentTime = Duration.zero;
+  ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
+  ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
 
   Future<void> handlePlayer(String songUrl) async {
     isPlaying.value = !isPlaying.value;
@@ -81,22 +79,22 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                         ),
                         playingController(
                             isPlaying: isPlaying,
-                            cb: handlePlayer,
+                            callBack: handlePlayer,
                             songUrl: state.TriggedSong.song!['url'])
                       ],
                     ),
                     Slider(
                         min: 0,
-                        max: finishTime.inSeconds.toDouble(),
-                        value: currentTime.inSeconds.toDouble(),
+                        max: finishTime.value.inSeconds.toDouble(),
+                        value: currentTime.value.inSeconds.toDouble(),
                         onChanged: (value) {}),
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(formatTime(currentTime)),
-                          Text(formatTime(finishTime))
+                          Text(formatTime(currentTime.value)),
+                          Text(formatTime(finishTime.value))
                         ],
                       ),
                     )
