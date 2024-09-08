@@ -51,17 +51,26 @@ String formatTime(Duration duration) {
   return [if (duration.inHours > 0) hours, minutes, secs].join(':');
 }
 
-CircleAvatar playingController(
-    {required bool isPlaying, required Future<void> playingFactory}) {
-  return CircleAvatar(
-    radius: 20,
-    child: SizedBox(
-      height: 30,
-      width: 30,
-      child: IconButton(
-        onPressed: () => playingFactory,
-        icon: SvgPicture.asset(isPlaying ? IconsPath.play : IconsPath.pause),
-      ),
-    ),
-  );
+ValueListenableBuilder<bool> playingController(
+    {required ValueNotifier<bool> isPlaying,
+    required Future<void> Function(String songUrl) cb,
+    required String songUrl}) {
+  return ValueListenableBuilder(
+      valueListenable: isPlaying,
+      builder: (_, playBuilder, __) {
+        return CircleAvatar(
+          radius: 20,
+          child: SizedBox(
+            height: 30,
+            width: 30,
+            child: IconButton(
+              onPressed: () {
+                cb(songUrl);
+              },
+              icon: SvgPicture.asset(
+                  playBuilder ? IconsPath.play : IconsPath.pause),
+            ),
+          ),
+        );
+      });
 }
