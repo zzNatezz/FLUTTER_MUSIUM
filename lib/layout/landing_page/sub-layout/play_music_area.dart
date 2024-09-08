@@ -48,26 +48,33 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SquareImage(state.TriggedSong.image!['url']),
-                        HorizontalSpace(value: 10),
-                        Column(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '${state.TriggedSong.author}',
-                              style: const TextStyle(
-                                color: Colorscontroller.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
-                              ),
+                            SquareImage(state.TriggedSong.image!['url']),
+                            HorizontalSpace(value: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${state.TriggedSong.author}',
+                                  style: const TextStyle(
+                                    color: Colorscontroller.black,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                VerticalSpace(value: 10),
+                                Text(
+                                  '${state.TriggedSong.title}',
+                                  style: const TextStyle(
+                                      color: Colorscontroller.grey,
+                                      fontSize: 18),
+                                )
+                              ],
                             ),
-                            VerticalSpace(value: 10),
-                            Text(
-                              '${state.TriggedSong.title}',
-                              style: const TextStyle(
-                                  color: Colorscontroller.grey, fontSize: 18),
-                            )
                           ],
                         ),
                         playingController(
