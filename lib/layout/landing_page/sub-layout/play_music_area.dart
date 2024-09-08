@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
@@ -15,10 +17,19 @@ class PlayMusicArea extends StatefulWidget {
 }
 
 class _PlayMusicAreaState extends State<PlayMusicArea> {
-  final player = AudioPlayer();
-  ValueNotifier<bool> isPlaying = ValueNotifier(false);
+  final AudioPlayer player = AudioPlayer();
+  ValueNotifier<bool> isPlaying = ValueNotifier(true);
   ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
   ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
+  // Duration finishTime = Duration.zero;
+  // Duration currentTime = Duration.zero;
+  StreamSubscription? _durationSubscription;
+  StreamSubscription? _positionSubscription;
+  StreamSubscription? _playerCompleteSubscription;
+  StreamSubscription? _playerStateChangeSubscription;
+  PlayerState? _playerState;
+
+  ///handlePlayer đang bị bug
 
   Future<void> handlePlayer(String songUrl) async {
     isPlaying.value = !isPlaying.value;
@@ -32,10 +43,33 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
   @override
   void initState() {
     super.initState();
+    _durationSubscription = player.onDurationChanged.listen((duration) {
+      finishTime.value = duration;
+    });
+
+    _positionSubscription = player.onPositionChanged.listen(
+      (p) => currentTime.value = p,
+    );
+
+    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
+      _playerState = PlayerState.stopped;
+      currentTime.value = Duration.zero;
+    });
+
+    _playerStateChangeSubscription =
+        player.onPlayerStateChanged.listen((state) {
+      setState(() {
+        _playerState = state;
+      });
+    });
   }
 
   @override
   void dispose() {
+    _durationSubscription?.cancel();
+    _positionSubscription?.cancel();
+    _playerCompleteSubscription?.cancel();
+    _playerStateChangeSubscription?.cancel();
     player.dispose();
     super.dispose();
   }
@@ -103,8 +137,16 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(formatTime(currentTime.value)),
-                          Text(formatTime(finishTime.value))
+                          ValueListenableBuilder(
+                              valueListenable: currentTime,
+                              builder: (_, currentTimeValue, __) {
+                                return Text(formatTime(currentTimeValue));
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: finishTime,
+                              builder: (_, finishtimeValue, __) {
+                                return Text(formatTime(finishtimeValue));
+                              })
                         ],
                       ),
                     )
