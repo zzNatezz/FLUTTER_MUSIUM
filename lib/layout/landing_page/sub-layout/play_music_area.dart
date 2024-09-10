@@ -21,13 +21,12 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
   ValueNotifier<bool> isPlaying = ValueNotifier(true);
   ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
   ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
-  // Duration finishTime = Duration.zero;
-  // Duration currentTime = Duration.zero;
+
   StreamSubscription? _durationSubscription;
   StreamSubscription? _positionSubscription;
   StreamSubscription? _playerCompleteSubscription;
   StreamSubscription? _playerStateChangeSubscription;
-  PlayerState? _playerState;
+  PlayerState? playerState;
 
   ///handlePlayer đang bị bug
 
@@ -52,16 +51,16 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
     );
 
     _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      _playerState = PlayerState.stopped;
+      playerState = PlayerState.stopped;
       currentTime.value = Duration.zero;
     });
 
-    _playerStateChangeSubscription =
-        player.onPlayerStateChanged.listen((state) {
-      setState(() {
-        _playerState = state;
-      });
-    });
+    // _playerStateChangeSubscription =
+    //     player.onPlayerStateChanged.listen((state) {
+    //   setState(() {
+    //     playerState = state;
+    //   });
+    // });
   }
 
   @override
@@ -127,11 +126,19 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                             songUrl: state.TriggedSong.song!['url'])
                       ],
                     ),
-                    Slider(
-                        min: 0,
-                        max: finishTime.value.inSeconds.toDouble(),
-                        value: currentTime.value.inSeconds.toDouble(),
-                        onChanged: (value) {}),
+                    ValueListenableBuilder(
+                        valueListenable: currentTime,
+                        builder: (_, position, __) {
+                          return Slider(
+                              min: 0,
+                              max: finishTime.value.inSeconds.toDouble(),
+                              value: position.inSeconds.toDouble(),
+                              onChanged: (value) async {
+                                final dynamicPosition =
+                                    Duration(seconds: value.toInt());
+                                await player.seek(dynamicPosition);
+                              });
+                        }),
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Row(
