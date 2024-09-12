@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:golobe/core/cubit/player_audio/player_audio_cubit.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 
 Widget DividerWithText(
@@ -54,9 +56,7 @@ String formatTime(Duration duration) {
 }
 
 CircleAvatar playingController(
-    {required ValueNotifier<bool> isPlaying,
-    required Future<void> Function(String songUrl) callBack,
-    required String songUrl}) {
+    {required HandlePlayerAudioCubit audioCubit, required String songUrl}) {
   return CircleAvatar(
     radius: 20,
     child: SizedBox(
@@ -64,14 +64,20 @@ CircleAvatar playingController(
       width: 30,
       child: IconButton(
         onPressed: () {
-          callBack(songUrl);
+          audioCubit.handlePlayer(songUrl: songUrl);
         },
-        icon: ValueListenableBuilder(
-            valueListenable: isPlaying,
-            builder: (_, isPlayvalue, __) {
-              return SvgPicture.asset(
-                  isPlayvalue ? IconsPath.play : IconsPath.pause);
-            }),
+        icon: BlocProvider(
+          create: (context) => HandlePlayerAudioCubit(),
+          child: BlocBuilder(
+              bloc: audioCubit,
+              builder: (context, state) {
+                if (state is PlayerControllerFinish) {
+                  return SvgPicture.asset(
+                      state.isPlaying ? IconsPath.play : IconsPath.pause);
+                }
+                return SvgPicture.asset(IconsPath.play);
+              }),
+        ),
       ),
     ),
   );

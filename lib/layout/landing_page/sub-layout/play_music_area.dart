@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
+import 'package:golobe/core/cubit/player_audio/player_audio_cubit.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
@@ -17,59 +17,23 @@ class PlayMusicArea extends StatefulWidget {
 }
 
 class _PlayMusicAreaState extends State<PlayMusicArea> {
-  final AudioPlayer player = AudioPlayer();
+  late HandlePlayerAudioCubit playerCubit;
   ValueNotifier<bool> isPlaying = ValueNotifier(true);
   ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
   ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
 
-  StreamSubscription? _durationSubscription;
-  StreamSubscription? _positionSubscription;
-  StreamSubscription? _playerCompleteSubscription;
-  StreamSubscription? _playerStateChangeSubscription;
-  PlayerState? playerState;
-
   ///handlePlayer đang bị bug
-
-  Future<void> handlePlayer(String songUrl) async {
-    isPlaying.value = !isPlaying.value;
-    if (isPlaying.value == true) {
-      player.pause();
-    } else {
-      await player.play(UrlSource(songUrl));
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    _durationSubscription = player.onDurationChanged.listen((duration) {
-      finishTime.value = duration;
-    });
-
-    _positionSubscription = player.onPositionChanged.listen(
-      (p) => currentTime.value = p,
-    );
-
-    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      playerState = PlayerState.stopped;
-      currentTime.value = Duration.zero;
-    });
-
-    // _playerStateChangeSubscription =
-    //     player.onPlayerStateChanged.listen((state) {
-    //   setState(() {
-    //     playerState = state;
-    //   });
-    // });
+    playerCubit = HandlePlayerAudioCubit()
+      ..initStream(finishTime: finishTime, currentTime: currentTime);
   }
 
   @override
   void dispose() {
-    _durationSubscription?.cancel();
-    _positionSubscription?.cancel();
-    _playerCompleteSubscription?.cancel();
-    _playerStateChangeSubscription?.cancel();
-    player.dispose();
+    playerCubit.dipose();
     super.dispose();
   }
 
@@ -121,22 +85,19 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                           ],
                         ),
                         playingController(
-                            isPlaying: isPlaying,
-                            callBack: handlePlayer,
+                            audioCubit: playerCubit,
                             songUrl: state.TriggedSong.song!['url'])
                       ],
                     ),
                     ValueListenableBuilder(
                         valueListenable: currentTime,
-                        builder: (_, position, __) {
+                        builder: (_, currentTimeValue, __) {
                           return Slider(
                               min: 0,
                               max: finishTime.value.inSeconds.toDouble(),
-                              value: position.inSeconds.toDouble(),
-                              onChanged: (value) async {
-                                final dynamicPosition =
-                                    Duration(seconds: value.toInt());
-                                await player.seek(dynamicPosition);
+                              value: currentTimeValue.inSeconds.toDouble(),
+                              onChanged: (double value) {
+                                playerCubit.onChangeSlider(value: value);
                               });
                         }),
                     Padding(
@@ -146,17 +107,17 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                         children: [
                           ValueListenableBuilder(
                               valueListenable: currentTime,
-                              builder: (_, currentTimeValue, __) {
-                                return Text(formatTime(currentTimeValue));
+                              builder: (_, currentPlace, __) {
+                                return Text(formatTime(currentPlace));
                               }),
                           ValueListenableBuilder(
                               valueListenable: finishTime,
-                              builder: (_, finishtimeValue, __) {
-                                return Text(formatTime(finishtimeValue));
+                              builder: (_, finishValue, __) {
+                                return Text(formatTime(finishTime.value));
                               })
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
