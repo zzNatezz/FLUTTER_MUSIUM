@@ -24,12 +24,12 @@ class SongEmitCubit extends Cubit<SongEmitState> {
       if (TriggedSong.error == true) throw Error();
       emit(SongEmitLoading());
       isPlaying = !isPlaying;
+      emit(SongEmitsucc(remainSong: TriggedSong));
       if (isPlaying == true) {
         player.pause();
       } else {
         await player.play(UrlSource(songUrl));
       }
-      emit(SongEmitsucc(remainSong: TriggedSong));
     } catch (e) {
       emit(SongEmitError(error: e));
     }
