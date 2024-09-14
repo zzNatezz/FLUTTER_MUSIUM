@@ -17,18 +17,30 @@ class SongEmitCubit extends Cubit<SongEmitState> {
   PlayerState? playerState;
   bool isPlaying = false;
   SongEmitCubit() : super(SongEmitInitial());
+  List<SongEntity> prevSong = [];
 
   Future<void> triggerSong(
       {required SongEntity TriggedSong, required String songUrl}) async {
     try {
       if (TriggedSong.error == true) throw Error();
-      emit(SongEmitLoading());
-      isPlaying = !isPlaying;
-      emit(SongEmitsucc(remainSong: TriggedSong));
-      if (isPlaying == true) {
-        player.pause();
+      prevSong.add(TriggedSong);
+      if (prevSong.length > 2) {
+        prevSong.removeAt(0);
+      }
+      if (prevSong[0].id == prevSong[1].id) {
+        emit(SongEmitLoading());
+        isPlaying = !isPlaying;
+        emit(SongEmitsucc(remainSong: TriggedSong));
+        if (isPlaying == true) {
+          player.pause();
+        } else {
+          await player.play(UrlSource(songUrl));
+        }
       } else {
-        await player.play(UrlSource(songUrl));
+        emit(SongEmitLoading());
+        isPlaying = true;
+        player.stop();
+        emit(SongEmitsucc(remainSong: TriggedSong));
       }
     } catch (e) {
       emit(SongEmitError(error: e));
@@ -39,13 +51,13 @@ class SongEmitCubit extends Cubit<SongEmitState> {
   Future<void> handlePlayer(
       {required String songUrl, required SongEntity remainSong}) async {
     emit(SongEmitLoading());
+    emit(SongEmitsucc(remainSong: remainSong));
     isPlaying = !isPlaying;
     if (isPlaying == true) {
       player.pause();
     } else {
       await player.play(UrlSource(songUrl));
     }
-    emit(SongEmitsucc(remainSong: remainSong));
   }
 
   void initStream(
