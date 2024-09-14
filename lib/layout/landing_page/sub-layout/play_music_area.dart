@@ -1,12 +1,9 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
-import 'package:golobe/core/cubit/player_audio/player_audio_cubit.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class PlayMusicArea extends StatefulWidget {
   final SongEmitCubit triggerSongCb;
@@ -17,8 +14,6 @@ class PlayMusicArea extends StatefulWidget {
 }
 
 class _PlayMusicAreaState extends State<PlayMusicArea> {
-  late HandlePlayerAudioCubit playerCubit;
-  ValueNotifier<bool> isPlaying = ValueNotifier(true);
   ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
   ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
 
@@ -27,13 +22,13 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
   @override
   void initState() {
     super.initState();
-    playerCubit = HandlePlayerAudioCubit()
-      ..initStream(finishTime: finishTime, currentTime: currentTime);
+    widget.triggerSongCb
+        .initStream(finishTime: finishTime, currentTime: currentTime);
   }
 
   @override
   void dispose() {
-    playerCubit.dipose();
+    widget.triggerSongCb.dipose();
     super.dispose();
   }
 
@@ -42,7 +37,7 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
     return BlocBuilder(
         bloc: widget.triggerSongCb,
         builder: (context, state) {
-          if (state is SongEmitTrigger) {
+          if (state is SongEmitsucc) {
             return Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Container(
@@ -60,13 +55,13 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SquareImage(state.TriggedSong.image!['url']),
+                            SquareImage(state.remainSong.image!['url']),
                             HorizontalSpace(value: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${state.TriggedSong.author}',
+                                  '${state.remainSong.author}',
                                   style: const TextStyle(
                                     color: Colorscontroller.black,
                                     fontWeight: FontWeight.w500,
@@ -75,7 +70,7 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                                 ),
                                 VerticalSpace(value: 10),
                                 Text(
-                                  '${state.TriggedSong.title}',
+                                  '${state.remainSong.title}',
                                   style: const TextStyle(
                                       color: Colorscontroller.grey,
                                       fontSize: 18),
@@ -85,8 +80,9 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                           ],
                         ),
                         playingController(
-                            audioCubit: playerCubit,
-                            songUrl: state.TriggedSong.song!['url'])
+                            remainSong: state.remainSong,
+                            audioCubit: widget.triggerSongCb,
+                            songUrl: state.remainSong.song!['url'])
                       ],
                     ),
                     ValueListenableBuilder(
@@ -97,7 +93,8 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                               max: finishTime.value.inSeconds.toDouble(),
                               value: currentTimeValue.inSeconds.toDouble(),
                               onChanged: (double value) {
-                                playerCubit.onChangeSlider(value: value);
+                                widget.triggerSongCb
+                                    .onChangeSlider(value: value);
                               });
                         }),
                     Padding(

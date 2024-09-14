@@ -16,6 +16,11 @@ final class SongEmitTrigger extends SongEmitState {
   const SongEmitTrigger({required this.TriggedSong});
 }
 
+final class SongEmitsucc extends SongEmitState {
+  final SongEntity remainSong;
+  const SongEmitsucc({required this.remainSong});
+}
+
 final class SongEmitError extends SongEmitState {
   final dynamic error;
   const SongEmitError({required this.error});

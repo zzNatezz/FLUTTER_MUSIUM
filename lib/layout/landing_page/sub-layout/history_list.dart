@@ -46,8 +46,9 @@ class _HistoryListState extends State<HistoryList> {
                         itemBuilder: (context, index) {
                           return TextButton(
                             onPressed: () {
-                              widget.triggerSongCb
-                                  .triggerSong(snapshot.data[index]);
+                              widget.triggerSongCb.triggerSong(
+                                  TriggedSong: snapshot.data[index],
+                                  songUrl: snapshot.data[index].song['url']);
                             },
                             child: roundTextCenter(
                                 imgUrl: snapshot.data[index].image['url'],
