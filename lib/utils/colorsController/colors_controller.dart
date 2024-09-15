@@ -9,5 +9,6 @@ class Colorscontroller {
   static const Color grey = Colors.grey;
   static const Color black = Colors.black;
   static const Color orange = Colors.orangeAccent;
-  static Color grey2 = Colors.grey.shade200;
+  static Color PrimaryBackground = const Color.fromRGBO(217, 217, 217, 1);
+  static Color songTitle = const Color.fromARGB(255, 37, 164, 180);
 }

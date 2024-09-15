@@ -20,9 +20,10 @@ class LandingPage extends StatelessWidget {
         appBar: AppBar(
             backgroundColor: Colors.lightBlue.shade200,
             title: AppbarTitle(user: user)),
+        drawer: const Drawer(),
         body: CustomScrollView(slivers: [
           SliverFillRemaining(
-            hasScrollBody: false,
+            hasScrollBody: true,
             child: Column(
               children: [
                 SizedBox(
@@ -30,6 +31,7 @@ class LandingPage extends StatelessWidget {
                   child: Column(
                     children: [
                       HistoryList(
+                        songTitle: 'Song listended',
                         userId: user?.id,
                         triggerSongCb: _triggerSongCb,
                       ),

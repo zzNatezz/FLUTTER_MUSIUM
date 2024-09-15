@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/history/history_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
+import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/round_text_center.dart';
 
 class HistoryList extends StatefulWidget {
   final String? userId;
   final SongEmitCubit triggerSongCb;
-  const HistoryList({super.key, this.userId = "", required this.triggerSongCb});
+  final String songTitle;
+  const HistoryList(
+      {super.key,
+      required this.songTitle,
+      this.userId = "",
+      required this.triggerSongCb});
 
   @override
   State<HistoryList> createState() => _HistoryListState();
@@ -29,13 +35,19 @@ class _HistoryListState extends State<HistoryList> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: 200,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(
+            widget.songTitle,
+            style: TextStyle(fontSize: 20, color: Colorscontroller.songTitle),
+          ),
+        ),
+        SizedBox(
+          height: 180,
           width: MediaQuery.sizeOf(context).width,
-          child: Center(
+          child: Align(
             child: FutureBuilder<List<SongEntity>>(
                 future: _convert(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -63,7 +75,7 @@ class _HistoryListState extends State<HistoryList> {
                 }),
           ),
         ),
-      ),
+      ],
     );
   }
 }

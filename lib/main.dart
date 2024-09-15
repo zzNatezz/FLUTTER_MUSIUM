@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: ThemeData(scaffoldBackgroundColor: Colorscontroller.grey2),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Colorscontroller.PrimaryBackground),
       title: 'Musium',
       routerConfig: _router,
     );
