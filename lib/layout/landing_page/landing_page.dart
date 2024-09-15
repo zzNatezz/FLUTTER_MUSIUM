@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
-import 'package:golobe/layout/landing_page/components/appbar_title.dart';
+import 'package:golobe/layout/landing_page/sub-layout/appbar_title.dart';
 import 'package:golobe/layout/landing_page/sub-layout/history_list.dart';
-import 'package:golobe/layout/landing_page/sub-layout/play_music_area.dart';
+import 'package:golobe/layout/landing_page/components/play_music_area.dart';
 
 //
 class LandingPage extends StatelessWidget {
@@ -23,7 +23,7 @@ class LandingPage extends StatelessWidget {
         drawer: const Drawer(),
         body: CustomScrollView(slivers: [
           SliverFillRemaining(
-            hasScrollBody: true,
+            hasScrollBody: false,
             child: Column(
               children: [
                 SizedBox(
@@ -34,12 +34,7 @@ class LandingPage extends StatelessWidget {
                         songTitle: 'Song listended',
                         userId: user?.id,
                         triggerSongCb: _triggerSongCb,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            authCubit.Logout(context: context);
-                          },
-                          child: const Text('Logout')),
+                      )
                     ],
                   ),
                 ),
