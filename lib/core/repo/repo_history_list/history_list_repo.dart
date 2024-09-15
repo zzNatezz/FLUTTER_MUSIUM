@@ -4,12 +4,12 @@ import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/consttants/api_path.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 
-class HistoryListRepo {
+class SongListRepo {
   final dio = Dio();
   Future<List<SongEntity>> fetchHistory({String userId = ""}) async {
     try {
       if (userId == "") throw Error();
-      final req = await dio.get('${ApiPath.HistorySongEP}/$userId');
+      final req = await dio.get('${ApiPath.historySongEP}/$userId');
       if (req.statusCode == 200) {
         final decoded = jwtdecode(req.data);
 

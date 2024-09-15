@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 
-sealed class HistoryState extends Equatable {
-  const HistoryState();
+sealed class SongState extends Equatable {
+  const SongState();
   @override
   List<Object> get props => [];
 }
 
-class HistoryStart extends HistoryState {}
+class SongStart extends SongState {}
 
-class HistoryProcessing extends HistoryState {}
+class SongProcessing extends SongState {}
 
-class HistoryCompleted extends HistoryState {}
+class SongCompleted extends SongState {}
 
-class HistoryError extends HistoryState {}
+class SongError extends SongState {}
