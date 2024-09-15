@@ -1,21 +1,21 @@
 import 'dart:developer' as dev;
 import 'package:dio/dio.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
-import 'package:golobe/core/consttants/api_path.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 
 class SongListRepo {
   final dio = Dio();
-  Future<List<SongEntity>> fetchHistory({String userId = ""}) async {
+  //
+  Future<List<SongEntity>> fetchSong(
+      {required String domain, String userId = ""}) async {
     try {
       if (userId == "") throw Error();
-      final req = await dio.get('${ApiPath.historySongEP}/$userId');
+      final req = await dio.get('$domain/$userId');
       if (req.statusCode == 200) {
         final decoded = jwtdecode(req.data);
 
         List<SongEntity> songs = [];
         late dynamic value;
-
         for (value in decoded.payload.values) {
           if (value is Map<String, dynamic>) {
             SongEntity song = SongEntity(
