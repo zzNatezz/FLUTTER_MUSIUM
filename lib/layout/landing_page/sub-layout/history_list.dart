@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
-import 'package:golobe/core/cubit/fetch_data/history/songs_state.dart';
+import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/round_text_center.dart';
