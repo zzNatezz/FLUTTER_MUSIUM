@@ -6,10 +6,10 @@ sealed class SongState extends Equatable {
   List<Object> get props => [];
 }
 
-class SongStart extends SongState {}
+class SongListenedStart extends SongState {}
 
-class SongProcessing extends SongState {}
+class SongListenedProcessing extends SongState {}
 
-class SongCompleted extends SongState {}
+class SongListenedCompleted extends SongState {}
 
-class SongError extends SongState {}
+class SongListenedError extends SongState {}
