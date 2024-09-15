@@ -13,3 +13,13 @@ class SongListenedProcessing extends SongState {}
 class SongListenedCompleted extends SongState {}
 
 class SongListenedError extends SongState {}
+
+//
+
+class TrendingStart extends SongState {}
+
+class TrendingLoading extends SongState {}
+
+class TrendingFinished extends SongState {}
+
+class TrendingError extends SongState {}

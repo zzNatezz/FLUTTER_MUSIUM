@@ -9,28 +9,28 @@ class HistoryList extends StatefulWidget {
   final String? userId;
   final SongEmitCubit triggerSongCb;
   final String songTitle;
+  final SongCubit songCubit;
   const HistoryList(
       {super.key,
       required this.songTitle,
       this.userId = "",
-      required this.triggerSongCb});
+      required this.triggerSongCb,
+      required this.songCubit});
 
   @override
   State<HistoryList> createState() => _HistoryListState();
 }
 
 class _HistoryListState extends State<HistoryList> {
-  late SongCubit historyCubit;
-
   Future<List<SongEntity>> _convert() async {
-    final listSong = await historyCubit.listenedSong(widget.userId as String);
+    final listSong =
+        await widget.songCubit.listenedSong(widget.userId as String);
     return listSong;
   }
 
   @override
   void initState() {
     super.initState();
-    historyCubit = SongCubit();
   }
 
   @override

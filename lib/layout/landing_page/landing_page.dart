@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
+import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/layout/landing_page/sub-layout/appbar_title.dart';
 import 'package:golobe/layout/landing_page/sub-layout/history_list.dart';
@@ -12,6 +13,7 @@ class LandingPage extends StatelessWidget {
   final LoginEntity? user;
   final AuthCubit authCubit = AuthCubit();
   final SongEmitCubit _triggerSongCb = SongEmitCubit();
+  final SongCubit songCubit = SongCubit();
   LandingPage({super.key, this.user});
 
   @override
@@ -31,10 +33,10 @@ class LandingPage extends StatelessWidget {
                   child: Column(
                     children: [
                       HistoryList(
-                        songTitle: 'Song listended',
-                        userId: user?.id,
-                        triggerSongCb: _triggerSongCb,
-                      )
+                          songTitle: 'Song listended',
+                          userId: user?.id,
+                          triggerSongCb: _triggerSongCb,
+                          songCubit: songCubit)
                     ],
                   ),
                 ),

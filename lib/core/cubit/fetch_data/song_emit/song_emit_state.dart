@@ -11,10 +11,7 @@ final class SongEmitInitial extends SongEmitState {}
 
 final class SongEmitLoading extends SongEmitState {}
 
-final class SongEmitTrigger extends SongEmitState {
-  final SongEntity TriggedSong;
-  const SongEmitTrigger({required this.TriggedSong});
-}
+final class SongEmitfinish extends SongEmitState {}
 
 final class SongEmitsucc extends SongEmitState {
   final SongEntity remainSong;

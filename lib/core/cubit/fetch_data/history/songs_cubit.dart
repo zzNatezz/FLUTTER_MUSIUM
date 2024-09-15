@@ -15,14 +15,30 @@ class SongCubit extends Cubit<SongState> {
       emit(SongListenedProcessing());
       final fetchData = await _songListRepo.fetchSong(
           domain: ApiPath.historySongEP, userId: userId);
-      if (fetchData == []) throw Exception();
+      if (fetchData == []) throw Error();
       emit(SongListenedCompleted());
       return fetchData;
     } catch (e) {
       emit(SongListenedError());
       dev.log(e.toString());
-      final List<SongEntity> data = [];
-      return data;
+      final List<SongEntity> fetchData = [];
+      return fetchData;
+    }
+  }
+
+  //
+  Future<List<SongEntity>> trendingSong() async {
+    try {
+      emit(TrendingStart());
+      final fetch = await _songListRepo.fetchSong(domain: ApiPath.trendingSong);
+      if (fetch == []) throw Error();
+      emit(TrendingFinished());
+      return fetch;
+    } catch (e) {
+      dev.log(e.toString());
+      final List<SongEntity> fetch = [];
+      emit(TrendingError());
+      return fetch;
     }
   }
 }
