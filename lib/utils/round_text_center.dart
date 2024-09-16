@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:golobe/utils/mini_widgets.dart';
 
-Widget roundTextCenter({required String imgUrl, required String songTitle}) {
+Widget roundTextCenter({
+  required String imgUrl,
+  required String songTitle,
+}) {
   return Padding(
     padding: const EdgeInsets.only(top: 30.0),
     child: Column(
