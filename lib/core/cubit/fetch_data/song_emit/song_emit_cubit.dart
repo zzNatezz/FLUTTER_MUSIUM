@@ -5,17 +5,19 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
+import 'package:golobe/utils/assetsStorage/global_var.dart';
 
 part 'song_emit_state.dart';
 
 class SongEmitCubit extends Cubit<SongEmitState> {
   final AudioPlayer player = AudioPlayer();
+  //
+
   StreamSubscription? durationSubscription;
   StreamSubscription? positionSubscription;
   StreamSubscription? playerCompleteSubscription;
   StreamSubscription? playerStateChangeSubscription;
   PlayerState? playerState;
-  bool isPlaying = false;
   SongEmitCubit() : super(SongEmitInitial());
   List<SongEntity> prevSong = [];
 
@@ -31,10 +33,11 @@ class SongEmitCubit extends Cubit<SongEmitState> {
         emit(SongEmitLoading());
         isPlaying = !isPlaying;
         emit(SongEmitsucc(remainSong: TriggedSong));
+
         if (isPlaying == true) {
           player.pause();
         } else {
-          await player.play(UrlSource(songUrl));
+          await player.play(UrlSource(songUrl)); //Thang này đang bị bug
         }
       } else {
         emit(SongEmitLoading());
@@ -48,11 +51,13 @@ class SongEmitCubit extends Cubit<SongEmitState> {
   }
 
   //function
-  Future<void> handlePlayer(
-      {required String songUrl, required SongEntity remainSong}) async {
+  Future<void> handlePlayer({
+    required String songUrl,
+    required SongEntity remainSong,
+  }) async {
     emit(SongEmitLoading());
-    emit(SongEmitsucc(remainSong: remainSong));
     isPlaying = !isPlaying;
+    emit(SongEmitsucc(remainSong: remainSong));
     if (isPlaying == true) {
       player.pause();
     } else {

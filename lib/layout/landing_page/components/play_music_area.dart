@@ -13,22 +13,31 @@ class PlayMusicArea extends StatefulWidget {
   State<PlayMusicArea> createState() => _PlayMusicAreaState();
 }
 
-class _PlayMusicAreaState extends State<PlayMusicArea> {
+class _PlayMusicAreaState extends State<PlayMusicArea>
+    with TickerProviderStateMixin {
   ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
   ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
 
-  ///handlePlayer đang bị bug
-
+  //Animation <-- dang bi bug, update sau
+  late AnimationController animationController;
+  late Animation<double> animation;
   @override
   void initState() {
     super.initState();
     widget.triggerSongCb
         .initStream(finishTime: finishTime, currentTime: currentTime);
+    //
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    animation =
+        CurvedAnimation(parent: animationController, curve: Curves.easeInCirc);
   }
 
   @override
   void dispose() {
     widget.triggerSongCb.dipose();
+    animationController.dispose();
+
     super.dispose();
   }
 
@@ -55,7 +64,15 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SquareImage(state.remainSong.image!['url']),
+                            RotationTransition(
+                              turns: Tween(begin: 0.0, end: 1.0)
+                                  .animate(animationController),
+                              child: SizedBox(
+                                  height: 60,
+                                  width: 60,
+                                  child: RoundImage(
+                                      state.remainSong.image!['url'])),
+                            ),
                             HorizontalSpace(value: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +97,7 @@ class _PlayMusicAreaState extends State<PlayMusicArea> {
                           ],
                         ),
                         playingController(
+                            animation: animationController,
                             remainSong: state.remainSong,
                             audioCubit: widget.triggerSongCb,
                             songUrl: state.remainSong.song!['url'])
