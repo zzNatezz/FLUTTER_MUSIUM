@@ -29,7 +29,7 @@ class SongEmitCubit extends Cubit<SongEmitState> {
       if (prevSong.length > 2) {
         prevSong.removeAt(0);
       }
-      if (prevSong[0].id == prevSong[1].id) {
+      if (prevSong.length == 1 || prevSong[0].id == prevSong[1].id) {
         emit(SongEmitLoading());
         isPlaying = !isPlaying;
         emit(SongEmitsucc(remainSong: TriggedSong));
@@ -37,7 +37,7 @@ class SongEmitCubit extends Cubit<SongEmitState> {
         if (isPlaying == true) {
           player.pause();
         } else {
-          await player.play(UrlSource(songUrl)); //Thang này đang bị bug
+          await player.play(UrlSource(songUrl));
         }
       } else {
         emit(SongEmitLoading());

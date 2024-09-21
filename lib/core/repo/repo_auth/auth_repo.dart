@@ -7,7 +7,9 @@ import 'dart:developer' as devlog;
 import 'package:golobe/core/consttants/api_path.dart';
 import 'package:dio/dio.dart';
 import 'package:golobe/core/repo/repo_auth/exceptions/gg_exept.dart';
+import 'package:golobe/utils/assetsStorage/global_var.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hive/hive.dart';
 
 class AuthRepo {
   final FirebaseAuth _auth_fb = FirebaseAuth.instance;
@@ -24,11 +26,13 @@ class AuthRepo {
       };
       Response req = await dio.post(ApiPath.loginEndPoint, data: data);
       if (req.statusCode == 200) {
+        Box<HiveInterface> authBox = await Hive.openBox(BoxName.authBox);
         final jsonEncoded = jsonEncode(req.data);
 
         final jsonDecoded = jsonDecode(jsonEncoded);
 
         final decoded = JWT.decode(jsonDecoded);
+        await authBox.put(BoxName.authToken, decoded.payload);
         return LoginEntity(
             id: decoded.payload['_id'],
             username: decoded.payload['username'],

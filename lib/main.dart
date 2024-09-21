@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:golobe/router/router.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/fire-base/storeDataFb.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: FireBaseOption.apiKey,
