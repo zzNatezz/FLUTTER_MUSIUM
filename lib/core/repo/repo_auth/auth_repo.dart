@@ -26,19 +26,20 @@ class AuthRepo {
       };
       Response req = await dio.post(ApiPath.loginEndPoint, data: data);
       if (req.statusCode == 200) {
-        Box<HiveInterface> authBox = await Hive.openBox(BoxName.authBox);
+        Box<Map<String, dynamic>> authBox = await Hive.openBox(BoxName.authBox);
         final jsonEncoded = jsonEncode(req.data);
 
         final jsonDecoded = jsonDecode(jsonEncoded);
 
         final decoded = JWT.decode(jsonDecoded);
-        await authBox.put(BoxName.authToken, decoded.payload);
+        await authBox.put(BoxName.authToken, decoded.payload ?? "");
+        final inBox = authBox.get(BoxName.authToken);
         return LoginEntity(
-            id: decoded.payload['_id'],
-            username: decoded.payload['username'],
-            email: decoded.payload['email'],
-            avatar: decoded.payload['avatar'] ?? "",
-            isAdmin: decoded.payload['admin']);
+            id: inBox!['_id'],
+            username: inBox['username'],
+            email: inBox['email'],
+            avatar: inBox['avatar'] ?? "",
+            isAdmin: inBox['admin']);
       } else {
         throw const LoginEntity(error: true);
       }
