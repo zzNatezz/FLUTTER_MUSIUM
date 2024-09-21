@@ -66,7 +66,8 @@ class SongEmitCubit extends Cubit<SongEmitState> {
   }
 
   void initStream(
-      {required ValueNotifier<Duration> finishTime,
+      {required AnimationController animationController,
+      required ValueNotifier<Duration> finishTime,
       required ValueNotifier<Duration> currentTime}) {
     durationSubscription = player.onDurationChanged.listen((duration) {
       finishTime.value = duration;
@@ -79,6 +80,7 @@ class SongEmitCubit extends Cubit<SongEmitState> {
     playerCompleteSubscription = player.onPlayerComplete.listen((event) {
       playerState = PlayerState.stopped;
       currentTime.value = Duration.zero;
+      animationController.stop();
     });
   }
 

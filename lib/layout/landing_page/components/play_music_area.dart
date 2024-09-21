@@ -26,14 +26,15 @@ class PlayMusicAreaState extends State<PlayMusicArea> {
   @override
   void initState() {
     super.initState();
-    widget.triggerSongCb
-        .initStream(finishTime: finishTime, currentTime: currentTime);
+    widget.triggerSongCb.initStream(
+        animationController: widget.animationController,
+        finishTime: finishTime,
+        currentTime: currentTime);
   }
 
   @override
   void dispose() {
     widget.triggerSongCb.dipose();
-
     super.dispose();
   }
 
