@@ -107,8 +107,9 @@ class PlayMusicAreaState extends State<PlayMusicArea> {
                               max: finishTime.value.inSeconds.toDouble(),
                               value: currentTimeValue.inSeconds.toDouble(),
                               onChanged: (double value) {
-                                widget.triggerSongCb
-                                    .onChangeSlider(value: value);
+                                widget.triggerSongCb.onChangeSlider(
+                                  value: value,
+                                );
                               });
                         }),
                     Padding(

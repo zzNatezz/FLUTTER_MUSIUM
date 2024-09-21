@@ -69,9 +69,8 @@ class _HistoryListState extends State<HistoryList> {
                                       TriggedSong: snapshot.data[index],
                                       songUrl:
                                           snapshot.data[index].song['url']);
-
                                   //handle animation playMusicAreaKey
-                                  isPlaying == true
+                                  widget.animationController.isAnimating
                                       ? widget.animationController.stop()
                                       : widget.animationController.repeat();
                                 },
