@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
-import 'package:golobe/core/cubit/auth/auth_musium/auth_cubit.dart';
-import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
-import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/layout/landing_page/sub-layout/appbar_title.dart';
-import 'package:golobe/layout/landing_page/sub-layout/history_list.dart';
-import 'package:golobe/layout/landing_page/components/play_music_area.dart';
+import 'package:golobe/layout/landing_page/sub-layout/body/body.dart';
 
 //
 class LandingPage extends StatelessWidget {
   static const landingPageRoute = '/';
   final LoginEntity? user;
-  final AuthCubit authCubit = AuthCubit();
-  final SongEmitCubit _triggerSongCb = SongEmitCubit();
-  final SongCubit songCubit = SongCubit();
-  LandingPage({super.key, this.user});
+
+  const LandingPage({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +17,9 @@ class LandingPage extends StatelessWidget {
             backgroundColor: Colors.lightBlue.shade200,
             title: AppbarTitle(user: user)),
         drawer: const Drawer(),
-        body: CustomScrollView(slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-                      HistoryList(
-                          songTitle: 'Song listended',
-                          userId: user?.id,
-                          triggerSongCb: _triggerSongCb,
-                          songCubit: songCubit)
-                    ],
-                  ),
-                ),
-                PlayMusicArea(triggerSongCb: _triggerSongCb)
-              ],
-            ),
-          ),
-        ]),
+        body:  BodyLayout(
+          id: user?.id,
+        ),
         bottomSheet: const Text('Handle navigate area'));
   }
 }

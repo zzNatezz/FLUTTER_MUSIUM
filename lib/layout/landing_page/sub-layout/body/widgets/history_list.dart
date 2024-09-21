@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
+import 'package:golobe/utils/assetsStorage/global_var.dart';
+
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/round_text_center.dart';
 
@@ -10,8 +12,11 @@ class HistoryList extends StatefulWidget {
   final SongEmitCubit triggerSongCb;
   final String songTitle;
   final SongCubit songCubit;
+  final AnimationController animationController;
+  //
   const HistoryList(
       {super.key,
+      required this.animationController,
       required this.songTitle,
       this.userId = "",
       required this.triggerSongCb,
@@ -56,15 +61,25 @@ class _HistoryListState extends State<HistoryList> {
                         scrollDirection: Axis.horizontal,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          return TextButton(
-                            onPressed: () {
-                              widget.triggerSongCb.triggerSong(
-                                  TriggedSong: snapshot.data[index],
-                                  songUrl: snapshot.data[index].song['url']);
-                            },
-                            child: roundTextCenter(
-                                imgUrl: snapshot.data[index].image['url'],
-                                songTitle: snapshot.data[index].title),
+                          return Column(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  widget.triggerSongCb.triggerSong(
+                                      TriggedSong: snapshot.data[index],
+                                      songUrl:
+                                          snapshot.data[index].song['url']);
+
+                                  //handle animation playMusicAreaKey
+                                  isPlaying == true
+                                      ? widget.animationController.stop()
+                                      : widget.animationController.repeat();
+                                },
+                                child: roundTextCenter(
+                                    imgUrl: snapshot.data[index].image['url'],
+                                    songTitle: snapshot.data[index].title),
+                              ),
+                            ],
                           );
                         });
                   } else if (snapshot.hasError) {

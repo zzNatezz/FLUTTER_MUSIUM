@@ -7,36 +7,32 @@ import 'package:golobe/utils/spaceController/spaces_controller.dart';
 
 class PlayMusicArea extends StatefulWidget {
   final SongEmitCubit triggerSongCb;
-  const PlayMusicArea({super.key, required this.triggerSongCb});
+  final AnimationController animationController;
+
+  const PlayMusicArea({
+    super.key,
+    required this.animationController,
+    required this.triggerSongCb,
+  });
 
   @override
-  State<PlayMusicArea> createState() => _PlayMusicAreaState();
+  State<PlayMusicArea> createState() => PlayMusicAreaState();
 }
 
-class _PlayMusicAreaState extends State<PlayMusicArea>
-    with TickerProviderStateMixin {
+class PlayMusicAreaState extends State<PlayMusicArea> {
   ValueNotifier<Duration> finishTime = ValueNotifier(Duration.zero);
   ValueNotifier<Duration> currentTime = ValueNotifier(Duration.zero);
 
-  //Animation <-- dang bi bug, update sau
-  late AnimationController animationController;
-  late Animation<double> animation;
   @override
   void initState() {
     super.initState();
     widget.triggerSongCb
         .initStream(finishTime: finishTime, currentTime: currentTime);
-    //
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3));
-    animation =
-        CurvedAnimation(parent: animationController, curve: Curves.easeInCirc);
   }
 
   @override
   void dispose() {
     widget.triggerSongCb.dipose();
-    animationController.dispose();
 
     super.dispose();
   }
@@ -66,7 +62,7 @@ class _PlayMusicAreaState extends State<PlayMusicArea>
                           children: [
                             RotationTransition(
                               turns: Tween(begin: 0.0, end: 1.0)
-                                  .animate(animationController),
+                                  .animate(widget.animationController),
                               child: SizedBox(
                                   height: 60,
                                   width: 60,
@@ -97,7 +93,7 @@ class _PlayMusicAreaState extends State<PlayMusicArea>
                           ],
                         ),
                         playingController(
-                            animation: animationController,
+                            animation: widget.animationController,
                             remainSong: state.remainSong,
                             audioCubit: widget.triggerSongCb,
                             songUrl: state.remainSong.song!['url'])
