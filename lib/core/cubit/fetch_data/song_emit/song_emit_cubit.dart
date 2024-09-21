@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
+import 'package:golobe/utils/assetsStorage/global_var.dart';
 part 'song_emit_state.dart';
 
 class SongEmitCubit extends Cubit<SongEmitState> {
@@ -16,7 +17,6 @@ class SongEmitCubit extends Cubit<SongEmitState> {
   StreamSubscription? playerCompleteSubscription;
   StreamSubscription? playerStateChangeSubscription;
   PlayerState? playerState;
-  bool isPlaying = false;
 
   SongEmitCubit() : super(SongEmitInitial());
   List<SongEntity> prevSong = [];
@@ -34,14 +34,14 @@ class SongEmitCubit extends Cubit<SongEmitState> {
         isPlaying = !isPlaying;
         emit(SongEmitsucc(remainSong: TriggedSong));
 
-        if (isPlaying == false) {
+        if (isPlaying == true) {
           player.pause();
         } else {
           await player.play(UrlSource(songUrl)); //Thang này đang bị bug
         }
       } else {
         emit(SongEmitLoading());
-        isPlaying = false;
+        isPlaying = true;
         player.stop();
         emit(SongEmitsucc(remainSong: TriggedSong));
       }

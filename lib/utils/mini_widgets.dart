@@ -4,6 +4,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
+import 'package:golobe/utils/assetsStorage/global_var.dart';
 import 'package:golobe/utils/assetsStorage/icon.dart';
 
 Widget DividerWithText(
@@ -66,10 +67,10 @@ CircleAvatar playingController(
       child: IconButton(
           onPressed: () {
             audioCubit.handlePlayer(songUrl: songUrl, remainSong: remainSong);
-            animation.isAnimating ? animation.stop() : animation.repeat();
+            isPlaying ? animation.stop() : animation.repeat();
           },
           icon: SvgPicture.asset(
-              audioCubit.isPlaying ? IconsPath.pause : IconsPath.play)),
+              isPlaying ? IconsPath.pause : IconsPath.play)),
     ),
   );
 }
