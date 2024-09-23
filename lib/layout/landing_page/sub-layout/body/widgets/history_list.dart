@@ -51,7 +51,7 @@ class _HistoryListState extends State<HistoryList> {
           ),
         ),
         SizedBox(
-          height: 180,
+          height: 200,
           width: MediaQuery.sizeOf(context).width,
           child: Align(
             child: FutureBuilder<List<SongEntity>>(
