@@ -83,11 +83,17 @@ class PlayMusicAreaState extends State<PlayMusicArea> {
                                   ),
                                 ),
                                 VerticalSpace(value: 10),
-                                Text(
-                                  '${state.remainSong.title}',
-                                  style: const TextStyle(
-                                      color: Colorscontroller.grey,
-                                      fontSize: 18),
+                                SizedBox(
+                                  width: 200,
+                                  child: Text(
+                                    '${state.remainSong.title}',
+                                    overflow: TextOverflow.fade,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                    style: const TextStyle(
+                                        color: Colorscontroller.grey,
+                                        fontSize: 18),
+                                  ),
                                 )
                               ],
                             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
 import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
+import 'package:golobe/utils/animation/animation.dart';
 import 'package:golobe/utils/assetsStorage/global_var.dart';
 
 import 'package:golobe/utils/colorsController/colors_controller.dart';
@@ -82,7 +83,7 @@ class _HistoryListState extends State<HistoryList> {
                           );
                         });
                   } else if (snapshot.hasError) {
-                    return const Text("Login to see your list song");
+                    return TextSliding("Login to see your list song");
                   } else {
                     return const CircularProgressIndicator();
                   }

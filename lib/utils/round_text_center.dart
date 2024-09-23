@@ -16,14 +16,13 @@ Widget roundTextCenter({
           child: SizedBox(
             width: 100,
             child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                songTitle,
-                overflow: TextOverflow.fade,
-                maxLines: 1,
-                softWrap: false,
-              ),
-            ),
+                alignment: Alignment.center,
+                child: Text(
+                  songTitle,
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  softWrap: false,
+                )),
           ),
         ),
       ],

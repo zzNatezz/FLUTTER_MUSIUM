@@ -34,8 +34,9 @@ class AuthRepo {
         final decoded = JWT.decode(jsonDecoded);
         await authBox.put(BoxName.authToken, decoded.payload ?? "");
         final inBox = authBox.get(BoxName.authToken);
+        if (inBox == null) throw Error();
         return LoginEntity(
-            id: inBox!['_id'],
+            id: inBox['_id'],
             username: inBox['username'],
             email: inBox['email'],
             avatar: inBox['avatar'] ?? "",
