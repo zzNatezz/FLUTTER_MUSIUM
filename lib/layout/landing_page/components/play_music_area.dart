@@ -86,6 +86,7 @@ class PlayMusicAreaState extends State<PlayMusicArea> {
                                 ),
                                 VerticalSpace(value: 10),
                                 SizedBox(
+                                  height: 25,
                                   width: 200,
                                   child: isPlaying == true
                                       ? Text(

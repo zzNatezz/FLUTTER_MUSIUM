@@ -6,7 +6,7 @@ Widget TextSliding(String text) => SizedBox(
       width: 100,
       child: Marquee(
         text: text,
-        style: const TextStyle(fontSize: 14),
+        style: const TextStyle(fontSize: 18),
         blankSpace: 30,
       ),
     );
