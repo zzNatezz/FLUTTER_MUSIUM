@@ -67,6 +67,7 @@ class _HistoryListState extends State<HistoryList> {
                               TextButton(
                                 onPressed: () {
                                   widget.triggerSongCb.triggerSong(
+                                      index: index,
                                       TriggedSong: snapshot.data[index],
                                       songUrl:
                                           snapshot.data[index].song['url']);
@@ -76,6 +77,8 @@ class _HistoryListState extends State<HistoryList> {
                                       : widget.animationController.repeat();
                                 },
                                 child: roundTextCenter(
+                                    index: index,
+                                    cubitBuilder: widget.triggerSongCb,
                                     imgUrl: snapshot.data[index].image['url'],
                                     songTitle: snapshot.data[index].title),
                               ),
@@ -83,7 +86,7 @@ class _HistoryListState extends State<HistoryList> {
                           );
                         });
                   } else if (snapshot.hasError) {
-                    return TextSliding("Login to see your list song");
+                    return const Text("Login to see your list song");
                   } else {
                     return const CircularProgressIndicator();
                   }

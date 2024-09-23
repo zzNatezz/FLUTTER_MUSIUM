@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
+import 'package:golobe/utils/animation/animation.dart';
+import 'package:golobe/utils/assetsStorage/global_var.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/mini_widgets.dart';
 import 'package:golobe/utils/spaceController/spaces_controller.dart';
@@ -85,15 +87,18 @@ class PlayMusicAreaState extends State<PlayMusicArea> {
                                 VerticalSpace(value: 10),
                                 SizedBox(
                                   width: 200,
-                                  child: Text(
-                                    '${state.remainSong.title}',
-                                    overflow: TextOverflow.fade,
-                                    maxLines: 1,
-                                    softWrap: false,
-                                    style: const TextStyle(
-                                        color: Colorscontroller.grey,
-                                        fontSize: 18),
-                                  ),
+                                  child: isPlaying == true
+                                      ? Text(
+                                          '${state.remainSong.title}',
+                                          overflow: TextOverflow.fade,
+                                          maxLines: 1,
+                                          softWrap: false,
+                                          style: const TextStyle(
+                                              color: Colorscontroller.grey,
+                                              fontSize: 18),
+                                        )
+                                      : TextSliding(
+                                          '${state.remainSong.title}'),
                                 )
                               ],
                             ),

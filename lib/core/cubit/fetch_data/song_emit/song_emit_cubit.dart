@@ -22,7 +22,9 @@ class SongEmitCubit extends Cubit<SongEmitState> {
   List<SongEntity> prevSong = [];
 
   Future<void> triggerSong(
-      {required SongEntity TriggedSong, required String songUrl}) async {
+      {required SongEntity TriggedSong,
+      required String songUrl,
+      required int index}) async {
     try {
       if (TriggedSong.error == true) throw Error();
       prevSong.add(TriggedSong);
@@ -32,7 +34,7 @@ class SongEmitCubit extends Cubit<SongEmitState> {
       if (prevSong.length == 1 || prevSong[0].id == prevSong[1].id) {
         emit(SongEmitLoading());
         isPlaying = !isPlaying;
-        emit(SongEmitsucc(remainSong: TriggedSong));
+        emit(SongEmitsucc(remainSong: TriggedSong, index: index));
 
         if (isPlaying == true) {
           player.pause();
@@ -43,7 +45,7 @@ class SongEmitCubit extends Cubit<SongEmitState> {
         emit(SongEmitLoading());
         isPlaying = true;
         player.stop();
-        emit(SongEmitsucc(remainSong: TriggedSong));
+        emit(SongEmitsucc(remainSong: TriggedSong, index: index));
       }
     } catch (e) {
       emit(SongEmitError(error: e));

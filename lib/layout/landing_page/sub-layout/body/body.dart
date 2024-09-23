@@ -4,7 +4,6 @@ import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/layout/landing_page/components/play_music_area.dart';
 import 'package:golobe/layout/landing_page/sub-layout/body/widgets/history_list.dart';
-import 'package:golobe/utils/animation/animation.dart';
 
 class BodyLayout extends StatefulWidget {
   final String? id;
@@ -26,9 +25,10 @@ class _BodyLayoutState extends State<BodyLayout> with TickerProviderStateMixin {
     authCubit = AuthCubit();
     _triggerSongCb = SongEmitCubit();
     songCubit = SongCubit();
+
+    //
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 3));
-
     animation =
         CurvedAnimation(parent: animationController, curve: Curves.easeInCirc);
     super.initState();

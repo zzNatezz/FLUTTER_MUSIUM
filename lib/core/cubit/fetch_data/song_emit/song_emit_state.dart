@@ -15,7 +15,8 @@ final class SongEmitfinish extends SongEmitState {}
 
 final class SongEmitsucc extends SongEmitState {
   final SongEntity remainSong;
-  const SongEmitsucc({required this.remainSong});
+  final int? index;
+  const SongEmitsucc({required this.remainSong, this.index});
 }
 
 final class SongEmitError extends SongEmitState {
