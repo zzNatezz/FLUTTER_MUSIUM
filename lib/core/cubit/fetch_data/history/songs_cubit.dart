@@ -13,6 +13,7 @@ class SongCubit extends Cubit<SongState> {
   Future<List<SongEntity>> listenedSong(String userId) async {
     try {
       emit(SongListenedProcessing());
+      if (userId == "") throw Error();
       final fetchData = await _songListRepo.fetchSong(
           domain: ApiPath.historySongEP, userId: userId);
       if (fetchData == []) throw Error();

@@ -9,11 +9,10 @@ class SongListRepo {
   Future<List<SongEntity>> fetchSong(
       {required String domain, String userId = ""}) async {
     try {
-      if (userId == "") throw Error();
       final req = await dio.get('$domain/$userId');
       if (req.statusCode == 200) {
         final decoded = jwtdecode(req.data);
-
+//
         List<SongEntity> songs = [];
         late dynamic value;
         for (value in decoded.payload.values) {
@@ -31,6 +30,7 @@ class SongListRepo {
           }
         }
         return songs;
+        //
       } else {
         dev.log('hist_list repo line 35');
         final List<SongEntity> songs = [];

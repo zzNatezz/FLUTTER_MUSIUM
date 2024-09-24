@@ -6,15 +6,13 @@ import 'package:golobe/layout/landing_page/components/play_music_area.dart';
 import 'package:golobe/layout/landing_page/sub-layout/body/widgets/history_list.dart';
 
 class BodyLayout extends StatefulWidget {
-  final String? id;
-  const BodyLayout({super.key, required this.id});
+  const BodyLayout({super.key});
 
   @override
   State<BodyLayout> createState() => _BodyLayoutState();
 }
 
 class _BodyLayoutState extends State<BodyLayout> with TickerProviderStateMixin {
-  late AuthCubit authCubit;
   late SongEmitCubit _triggerSongCb;
   late SongCubit songCubit;
   late AnimationController animationController;
@@ -22,7 +20,6 @@ class _BodyLayoutState extends State<BodyLayout> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    authCubit = AuthCubit();
     _triggerSongCb = SongEmitCubit();
     songCubit = SongCubit();
 
@@ -52,10 +49,9 @@ class _BodyLayoutState extends State<BodyLayout> with TickerProviderStateMixin {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  HistoryList(
+                  TrendingList(
                       animationController: animationController,
-                      songTitle: 'Song listended',
-                      userId: widget.id,
+                      songTitle: 'Trending',
                       triggerSongCb: _triggerSongCb,
                       songCubit: songCubit),
                 ],

@@ -7,29 +7,26 @@ import 'package:golobe/utils/assetsStorage/global_var.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/round_text_center.dart';
 
-class HistoryList extends StatefulWidget {
-  final String? userId;
+class TrendingList extends StatefulWidget {
   final SongEmitCubit triggerSongCb;
   final String songTitle;
   final SongCubit songCubit;
   final AnimationController animationController;
   //
-  const HistoryList(
+  const TrendingList(
       {super.key,
       required this.animationController,
       required this.songTitle,
-      this.userId = "",
       required this.triggerSongCb,
       required this.songCubit});
 
   @override
-  State<HistoryList> createState() => _HistoryListState();
+  State<TrendingList> createState() => _TrendingListState();
 }
 
-class _HistoryListState extends State<HistoryList> {
+class _TrendingListState extends State<TrendingList> {
   Future<List<SongEntity>> _convert() async {
-    final listSong =
-        await widget.songCubit.listenedSong(widget.userId as String);
+    final listSong = await widget.songCubit.trendingSong();
     return listSong;
   }
 
