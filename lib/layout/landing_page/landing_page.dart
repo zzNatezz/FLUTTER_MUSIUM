@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
-import 'package:golobe/layout/landing_page/sub-layout/appbar_title.dart';
+import 'package:golobe/layout/landing_page/sub-layout/appbar/appbar_title.dart';
 import 'package:golobe/layout/landing_page/sub-layout/body/body.dart';
 
 //
