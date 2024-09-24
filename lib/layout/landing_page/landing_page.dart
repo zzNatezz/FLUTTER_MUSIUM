@@ -16,8 +16,8 @@ class LandingPage extends StatelessWidget {
         appBar: AppBar(
             backgroundColor: Colors.lightBlue.shade200,
             title: AppbarTitle(user: user)),
-        drawer: const Drawer(),
-        body:  BodyLayout(
+        // drawer: const Drawer(), <-- TẠM THỜI BỎ VÌ CHƯA BIẾT LÀM J VỚI DRAWER NÀY
+        body: BodyLayout(
           id: user?.id,
         ),
         bottomSheet: const Text('Handle navigate area'));
