@@ -12,13 +12,15 @@ class TrendingList extends StatefulWidget {
   final String songTitle;
   final SongCubit songCubit;
   final AnimationController animationController;
+  final String domain;
   //
   const TrendingList(
       {super.key,
       required this.animationController,
       required this.songTitle,
       required this.triggerSongCb,
-      required this.songCubit});
+      required this.songCubit,
+      required this.domain});
 
   @override
   State<TrendingList> createState() => _TrendingListState();
@@ -26,7 +28,7 @@ class TrendingList extends StatefulWidget {
 
 class _TrendingListState extends State<TrendingList> {
   Future<List<SongEntity>> _convert() async {
-    final listSong = await widget.songCubit.trendingSong();
+    final listSong = await widget.songCubit.fetchSong(widget.domain);
     return listSong;
   }
 

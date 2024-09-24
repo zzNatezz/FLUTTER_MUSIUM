@@ -28,10 +28,10 @@ class SongCubit extends Cubit<SongState> {
   }
 
   //
-  Future<List<SongEntity>> trendingSong() async {
+  Future<List<SongEntity>> fetchSong(String domain) async {
     try {
       emit(TrendingStart());
-      final fetch = await _songListRepo.fetchSong(domain: ApiPath.trendingSong);
+      final fetch = await _songListRepo.fetchSong(domain: domain);
       if (fetch == []) throw Error();
       emit(TrendingFinished());
       return fetch;
