@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
-import 'package:golobe/layout/landing_page/sub-layout/appbar/widgets/isAuth.dart';
+import 'package:golobe/layout/landing_page/sub-layout/appbar/widgets/authedState.dart';
 import 'package:golobe/layout/landing_page/sub-layout/appbar/widgets/non_auth.dart';
 
 class AppbarTitle extends StatefulWidget {

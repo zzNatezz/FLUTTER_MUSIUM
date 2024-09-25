@@ -29,13 +29,21 @@ Widget DividerWithText(
 ClipRRect RoundImage(String url) {
   return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(100.0)),
-      child: Image.network(url, fit: BoxFit.fill, width: 100, height: 100));
+      child: Image.network(url, fit: BoxFit.fill, width: 100, height: 100,
+          errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return const Text('Error');
+      }));
 }
 
 ClipRRect SquareImage(String url) {
   return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-      child: Image.network(url, fit: BoxFit.fill, width: 70, height: 70));
+      child: Image.network(url, fit: BoxFit.fill, width: 70, height: 70,
+          errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return const Text('Error');
+      }));
 }
 
 //
@@ -69,8 +77,7 @@ CircleAvatar playingController(
             audioCubit.handlePlayer(songUrl: songUrl, remainSong: remainSong);
             isPlaying ? animation.stop() : animation.repeat();
           },
-          icon: SvgPicture.asset(
-              isPlaying ? IconsPath.pause : IconsPath.play)),
+          icon: SvgPicture.asset(isPlaying ? IconsPath.pause : IconsPath.play)),
     ),
   );
 }

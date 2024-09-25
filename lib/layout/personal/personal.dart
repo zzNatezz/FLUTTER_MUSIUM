@@ -6,6 +6,7 @@ class Personal extends StatelessWidget {
   static String get routerConfig => 'personal';
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        appBar: AppBar(title: const Text('dasd')), body: const Text('HGello0'));
   }
 }
