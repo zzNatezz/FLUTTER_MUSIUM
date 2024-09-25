@@ -11,9 +11,9 @@ import "package:golobe/utils/spaceController/spaces_controller.dart";
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
-  static const String loginPageRoute = 'login';
-
   const LoginPage({super.key});
+
+  static String get routerConfig => 'login';
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
                           children: [
                             TextButton(
                               onPressed: () {
-                                context.push(RegisterPage.registerPageRoute);
+                                context.push(RegisterPage.routerConfig);
                               },
                               child: const Text(
                                 "SignUp ?",
@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                context.go(LandingPage.landingPageRoute);
+                                context.go(LandingPage.routerConfig);
                               },
                               child: const Text('Review App ?',
                                   style: TextStyle(

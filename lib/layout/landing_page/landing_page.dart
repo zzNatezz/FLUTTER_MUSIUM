@@ -5,10 +5,10 @@ import 'package:golobe/layout/landing_page/sub-layout/body/body.dart';
 
 //
 class LandingPage extends StatelessWidget {
-  static const landingPageRoute = '/';
   final LoginEntity? user;
-
   const LandingPage({super.key, this.user});
+
+  static String get routerConfig => '/';
 
   @override
   Widget build(BuildContext context) {

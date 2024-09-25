@@ -83,7 +83,7 @@ class PlayMusicAreaState extends State<PlayMusicArea> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,
                                   ),
-                                ),
+                                ),  
                                 VerticalSpace(value: 10),
                                 SizedBox(
                                   height: 25,

@@ -30,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
       emit(AuthCompleted());
       if (context.mounted) {
-        context.pushReplacement(LandingPage.landingPageRoute, extra: authen);
+        context.pushReplacement(LandingPage.routerConfig, extra: authen);
       }
     } on Exception catch (e) {
       emit(AuthCompleted());
@@ -53,7 +53,7 @@ class AuthCubit extends Cubit<AuthState> {
           id: user?.uid,
           avatar: user?.photoURL as String);
       if (context.mounted) {
-        context.pushReplacement(LandingPage.landingPageRoute, extra: authen);
+        context.pushReplacement(LandingPage.routerConfig, extra: authen);
       }
     } on NoGoogleAccountChosenException {
       emit(AuthError());
@@ -69,7 +69,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authRepo.logOut();
       if (context.mounted) {
-        context.pushReplacement('/${LoginPage.loginPageRoute}');
+        context.pushReplacement('/${LoginPage.routerConfig}');
       }
       emit(AuthCompleted());
     } catch (e) {

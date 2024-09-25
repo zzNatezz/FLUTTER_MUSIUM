@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 GoRouter goRouter() {
   return GoRouter(initialLocation: '/', routes: <RouteBase>[
     GoRoute(
-        path: LandingPage.landingPageRoute,
+        path: LandingPage.routerConfig,
         pageBuilder: (BuildContext context, GoRouterState state) {
           final LoginEntity? isUser = state.extra as LoginEntity?;
           return MaterialPage(
@@ -21,14 +21,14 @@ GoRouter goRouter() {
               fullscreenDialog: true);
         }),
     GoRoute(
-        name: LoginPage.loginPageRoute,
-        path: "/${LoginPage.loginPageRoute}",
+        name: LoginPage.routerConfig,
+        path: "/${LoginPage.routerConfig}",
         builder: (BuildContext context, GoRouterState state) {
           return const LoginPage();
         }),
     GoRoute(
-      name: RegisterPage.registerPageRoute,
-      path: '/${RegisterPage.registerPageRoute}',
+      name: RegisterPage.routerConfig,
+      path: '/${RegisterPage.routerConfig}',
       builder: (BuildContext context, GoRouterState state) =>
           const RegisterPage(),
     ),

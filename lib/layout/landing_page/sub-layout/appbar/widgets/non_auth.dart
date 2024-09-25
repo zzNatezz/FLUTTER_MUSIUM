@@ -20,7 +20,7 @@ class NonAuth extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colorscontroller.whitText),
             onPressed: () {
-              context.go('/${LoginPage.loginPageRoute}');
+              context.go('/${LoginPage.routerConfig}');
             },
             child: const Text(
               'Login',
