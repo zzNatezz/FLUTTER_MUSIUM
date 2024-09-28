@@ -49,7 +49,7 @@ class _TrendingListState extends State<TrendingList> {
           ),
         ),
         SizedBox(
-          height: 200,
+          height: 250,
           width: MediaQuery.sizeOf(context).width,
           child: Align(
             child: FutureBuilder<List<SongEntity>>(
@@ -75,6 +75,8 @@ class _TrendingListState extends State<TrendingList> {
                                       : widget.animationController.repeat();
                                 },
                                 child: roundTextCenter(
+                                    view: snapshot.data[index].view,
+                                    author: snapshot.data[index].author,
                                     index: index,
                                     cubitBuilder: widget.triggerSongCb,
                                     imgUrl: snapshot.data[index].image['url'],

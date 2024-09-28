@@ -12,6 +12,8 @@ Widget roundTextCenter({
   required String songTitle,
   required SongEmitCubit cubitBuilder,
   required int index,
+  required int view,
+  required String author,
 }) {
   return Padding(
     padding: const EdgeInsets.only(top: 30.0),
@@ -32,13 +34,34 @@ Widget roundTextCenter({
                       width: 100,
                       child: Container(
                           alignment: Alignment.center,
-                          child: Text(
-                            style:
-                                const TextStyle(color: Colorscontroller.grey),
-                            songTitle,
-                            overflow: TextOverflow.fade,
-                            maxLines: 1,
-                            softWrap: false,
+                          child: Column(
+                            children: [
+                              Text(
+                                style: const TextStyle(
+                                    color: Colorscontroller.grey, fontSize: 10),
+                                'view: $view',
+                                overflow: TextOverflow.fade,
+                                maxLines: 1,
+                                softWrap: false,
+                              ),
+                              Text(
+                                style: const TextStyle(
+                                    color: Colorscontroller.grey, fontSize: 10),
+                                author,
+                                overflow: TextOverflow.fade,
+                                maxLines: 1,
+                                softWrap: false,
+                              ),
+                              Text(
+                                style: const TextStyle(
+                                    color: Colorscontroller.black,
+                                    fontSize: 14),
+                                songTitle,
+                                overflow: TextOverflow.fade,
+                                maxLines: 1,
+                                softWrap: false,
+                              ),
+                            ],
                           ))));
             }),
       ],
