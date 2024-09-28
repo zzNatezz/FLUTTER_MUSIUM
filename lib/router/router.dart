@@ -26,8 +26,10 @@ GoRouter goRouter() {
           GoRoute(
               name: Personal.routerConfig,
               path: Personal.routerConfig,
-              builder: (BuildContext context, GoRouterState state) =>
-                  const Personal())
+              builder: (BuildContext context, GoRouterState state) {
+                final LoginEntity? isUser = state.extra as LoginEntity?;
+                return Material(child: Personal(user: isUser));
+              })
         ]),
     GoRoute(
         name: LoginPage.routerConfig,

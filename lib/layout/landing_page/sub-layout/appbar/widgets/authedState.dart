@@ -41,7 +41,7 @@ class AuthedState extends StatelessWidget {
             HorizontalSpace(value: 10),
             TextButton(
               onPressed: () {
-                context.pushNamed(Personal.routerConfig);
+                context.pushNamed(Personal.routerConfig, extra: user);
               },
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
