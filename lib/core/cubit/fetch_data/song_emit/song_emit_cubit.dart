@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:golobe/EntityStorage/entity_storage.dart';
+import 'package:golobe/core/repo/repo_song_list/song_list_repo.dart';
 import 'package:golobe/utils/assetsStorage/global_var.dart';
 part 'song_emit_state.dart';
 
@@ -76,7 +77,9 @@ class SongEmitCubit extends Cubit<SongEmitState> {
     });
 
     positionSubscription = player.onPositionChanged.listen(
-      (p) => currentTime.value = p,
+      (p) {
+        currentTime.value = p;
+      },
     );
 
     playerCompleteSubscription = player.onPlayerComplete.listen((event) {

@@ -7,14 +7,14 @@ import 'package:golobe/utils/assetsStorage/global_var.dart';
 import 'package:golobe/utils/colorsController/colors_controller.dart';
 import 'package:golobe/utils/round_text_center.dart';
 
-class TrendingList extends StatefulWidget {
+class FetchedList extends StatefulWidget {
   final SongEmitCubit triggerSongCb;
   final String songTitle;
   final SongCubit songCubit;
   final AnimationController animationController;
   final String domain;
   //
-  const TrendingList(
+  const FetchedList(
       {super.key,
       required this.animationController,
       required this.songTitle,
@@ -23,10 +23,10 @@ class TrendingList extends StatefulWidget {
       required this.domain});
 
   @override
-  State<TrendingList> createState() => _TrendingListState();
+  State<FetchedList> createState() => _FetchedListState();
 }
 
-class _TrendingListState extends State<TrendingList> {
+class _FetchedListState extends State<FetchedList> {
   Future<List<SongEntity>> _convert() async {
     final listSong = await widget.songCubit.fetchSong(widget.domain);
     return listSong;

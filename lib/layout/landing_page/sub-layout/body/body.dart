@@ -3,7 +3,7 @@ import 'package:golobe/core/consttants/api_path.dart';
 import 'package:golobe/core/cubit/fetch_data/history/songs_cubit.dart';
 import 'package:golobe/core/cubit/fetch_data/song_emit/song_emit_cubit.dart';
 import 'package:golobe/layout/landing_page/components/play_music_area.dart';
-import 'package:golobe/layout/landing_page/sub-layout/body/widgets/builderSong.dart';
+import 'package:golobe/layout/landing_page/sub-layout/body/widgets/fetched_list.dart';
 
 class BodyLayout extends StatefulWidget {
   const BodyLayout({super.key});
@@ -49,7 +49,7 @@ class _BodyLayoutState extends State<BodyLayout> with TickerProviderStateMixin {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  TrendingList(
+                  FetchedList(
                       domain: ApiPath.trendingSong,
                       animationController: animationController,
                       songTitle: 'Trending',
